@@ -23,12 +23,12 @@ const Layout = () => {
       >
         <Sidebar menu={openMenu} />
       </motion.div>
-      <div className="w-screen">
+      <div className="w-screen min-h-screen">
         <Navbar action={menuHandler} />
+        <main>
+          <Outlet />
+        </main>
       </div>
-      <main className="min-h-screen ">
-        <Outlet />
-      </main>
     </div>
   );
 };
