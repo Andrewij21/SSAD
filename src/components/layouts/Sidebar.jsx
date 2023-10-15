@@ -1,19 +1,9 @@
-import { motion } from "framer-motion";
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
 
-const variants = {
-  expanded: { width: "20%" },
-  nonexpanded: { width: "10%" },
-};
-
 const Sidebar = ({ menu }) => {
   return (
-    <motion.div
-      animate={menu ? "expanded" : "nonexpanded"}
-      variants={variants}
-      className="max-w-xl min-h-screen p-6 flex flex-col gap-4 bg-sky-800 text-slate-200 shadow-sm"
-    >
+    <div className="min-h-screen p-6 flex flex-col gap-4 bg-sky-800 text-slate-200 shadow-sm">
       <div
         className={`space-y-2 border-b-4 border-white ${
           menu ? "text-left" : "text-center"
@@ -55,7 +45,7 @@ const Sidebar = ({ menu }) => {
           Personel
         </span>
       </button>
-    </motion.div>
+    </div>
   );
 };
 
