@@ -9,7 +9,7 @@ const Sidebar = ({ menu }) => {
           menu ? "text-left" : "text-center"
         }`}
       >
-        <span className="uppercase text-4xl font-extrabold text-sky-400 ">
+        <span className="uppercase text-xl lg:text-2xl font-extrabold text-sky-400 ">
           SSAD
         </span>
         <h1 className="tracking-wide text-sm pb-4">Admin Panel</h1>
