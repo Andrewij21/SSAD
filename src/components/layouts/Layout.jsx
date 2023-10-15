@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
@@ -8,9 +8,7 @@ const Layout = () => {
   const menuHandler = () => {
     setOpenmenu(!openMenu);
   };
-  useEffect(() => {
-    console.log(openMenu);
-  }, [openMenu]);
+
   return (
     <div className="w-full flex">
       <Sidebar menu={openMenu} />

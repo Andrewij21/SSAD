@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 
 const variants = {
   expanded: { width: "20%" },
@@ -9,9 +8,6 @@ const variants = {
 };
 
 const Sidebar = ({ menu }) => {
-  useEffect(() => {
-    console.log("masuk nilai menu", menu);
-  }, [menu]);
   return (
     <motion.div
       animate={menu ? "expanded" : "nonexpanded"}
