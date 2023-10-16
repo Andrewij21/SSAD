@@ -26,13 +26,10 @@ const Sidebar = ({ menu }) => {
 
       {menus.map((page, i) => {
         return (
-          <Link
-            to={page.path}
-            key={i}
-            className={`${menu ? "self-start" : "self-center"} w-full`}
-          >
+          <Link to={page.path} key={i} className={`w-full `}>
             <button
               className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold w-full
+              ${menu ? "justify-start" : "justify-center"} 
               `}
             >
               {page.icon}
