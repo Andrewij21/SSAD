@@ -26,7 +26,7 @@ const Layout = () => {
       </motion.div>
       <div className="w-screen min-h-screen">
         <Navbar action={menuHandler} />
-        <main>
+        <main className="p-6 h-[92vh]">
           <Outlet />
         </main>
       </div>
