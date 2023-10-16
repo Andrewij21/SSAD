@@ -12,7 +12,9 @@ const Sidebar = ({ menu }) => {
         <span className="uppercase text-xl lg:text-2xl font-extrabold text-sky-400 ">
           SSAD
         </span>
-        <h1 className="tracking-wide text-sm pb-4">Admin Panel</h1>
+        <h1 className={`tracking-wide pb-4 ${menu ? "text-sm" : "text-xs"}`}>
+          Admin Panel
+        </h1>
       </div>
 
       <button
