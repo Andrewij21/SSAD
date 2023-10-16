@@ -1,6 +1,12 @@
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
 
+const menus = [
+  { title: "dashboard", icon: <BiSolidDashboard /> },
+  { title: "device", icon: <BiSolidMicrochip /> },
+  { title: "personel", icon: <BiGroup /> },
+];
+
 const Sidebar = ({ menu }) => {
   return (
     <div className="min-h-screen p-6 flex flex-col gap-4 bg-sky-800 text-slate-200 shadow-sm">
@@ -17,7 +23,23 @@ const Sidebar = ({ menu }) => {
         </h1>
       </div>
 
-      <button
+      {menus.map((page, i) => {
+        return (
+          <button
+            className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold ${
+              menu ? "justify-start" : "justify-center"
+            }`}
+            key={i}
+          >
+            {page.icon}
+            <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
+              {page.title}
+            </span>
+          </button>
+        );
+      })}
+
+      {/* <button
         className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold ${
           menu ? "justify-start" : "justify-center"
         }`}
@@ -46,7 +68,7 @@ const Sidebar = ({ menu }) => {
         <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
           Personel
         </span>
-      </button>
+      </button>  */}
     </div>
   );
 };
