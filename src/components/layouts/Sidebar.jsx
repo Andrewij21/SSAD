@@ -1,10 +1,11 @@
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const menus = [
-  { title: "dashboard", icon: <BiSolidDashboard /> },
-  { title: "device", icon: <BiSolidMicrochip /> },
-  { title: "personel", icon: <BiGroup /> },
+  { title: "home", icon: <BiSolidDashboard />, path: "/" },
+  { title: "devices", icon: <BiSolidMicrochip />, path: "/devices" },
+  { title: "personel", icon: <BiGroup />, path: "/personel" },
 ];
 
 const Sidebar = ({ menu }) => {
@@ -25,17 +26,18 @@ const Sidebar = ({ menu }) => {
 
       {menus.map((page, i) => {
         return (
-          <button
-            className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold ${
-              menu ? "justify-start" : "justify-center"
-            }`}
-            key={i}
-          >
-            {page.icon}
-            <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
-              {page.title}
-            </span>
-          </button>
+          <Link to={page.path} key={i}>
+            <button
+              className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold ${
+                menu ? "justify-start" : "justify-center"
+              }`}
+            >
+              {page.icon}
+              <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
+                {page.title}
+              </span>
+            </button>
+          </Link>
         );
       })}
 
