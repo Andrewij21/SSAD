@@ -1,5 +1,11 @@
+import Table from "../components/ui/Table";
+
 const Devices = () => {
-  return <h1>Alat</h1>;
+  return (
+    <div>
+      <Table />
+    </div>
+  );
 };
 
 export default Devices;
