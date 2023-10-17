@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
+import api from "../api/axios";
 
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
+  const [device, setDevice] = useState([]);
   const toggleModel = () => {
     setShowModal(!showModal);
   };
-
+  useEffect(() => {
+    api
+      .get("/device")
+      .then((res) => {
+        console.log(res);
+        setDevice(res.data.data);
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+  }, []);
   return (
     <div>
       <h1 className="text-2xl text-sky-800 font-bold capitalize">Devices</h1>
@@ -24,7 +36,7 @@ const Devices = () => {
       {showModal ? (
         <Modal toggleModel={toggleModel} title={"add device"} />
       ) : null}
-      <Table />
+      <Table data={device} />
     </div>
   );
 };
