@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { AiFillDelete, AiOutlineMore } from "react-icons/ai";
 
 const datas = [
   { name: "Apple MacBook Pro 17", users: ["user1"] },
@@ -12,10 +13,10 @@ const Table = ({ data }) => {
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 columns-4">
               Device name
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="px-6 py-3 columns-8">
               User
             </th>
             <th scope="col" className="px-6 py-3">
@@ -45,13 +46,13 @@ const Table = ({ data }) => {
                     );
                   })}
                 </td>
-                <td className="px-6 py-4">
-                  <a
-                    href="#"
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit
-                  </a>
+                <td className="px-6 py-4 space-x-2">
+                  <button className="font-medium text-xl text-rose-600 dark:text-rose-600">
+                    <AiFillDelete />
+                  </button>
+                  <button className="font-medium text-xl text-gray-600 dark:text-slate-200">
+                    <AiOutlineMore />
+                  </button>
                 </td>
               </tr>
             );
