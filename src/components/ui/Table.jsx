@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { AiFillDelete, AiOutlineMore } from "react-icons/ai";
 
-const datas = [
-  { name: "Apple MacBook Pro 17", users: ["user1"] },
-  { name: "device2", users: ["user2"] },
-  { name: "device3", users: ["user3"] },
-];
+// const datas = [
+//   { name: "Apple MacBook Pro 17", users: ["user1"] },
+//   { name: "device2", users: ["user2"] },
+//   { name: "device3", users: ["user3"] },
+// ];
 
 const Table = ({ data }) => {
   return (
@@ -25,7 +25,7 @@ const Table = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {datas.map((item, i) => {
+          {data.map((item, i) => {
             return (
               <tr
                 className="odd:bg-white even:bg-gray-50 border-b odd:dark:bg-gray-900 even:dark:bg-gray-800 dark:border-gray-700"
@@ -40,13 +40,14 @@ const Table = ({ data }) => {
                 <td className="px-6 py-4">
                   {item.users.map((user, i) => {
                     return (
-                      <p key={i} className="inline mr-1">
+                      <p key={i} className="inline">
                         {user}
+                        {item.users.length !== i + 1 ? "," : ""}
                       </p>
                     );
                   })}
                 </td>
-                <td className="px-6 py-4 space-x-2">
+                <td className="px-6 py-4 flex flex-wrap">
                   <button className="font-medium text-xl text-rose-600 dark:text-rose-600">
                     <AiFillDelete />
                   </button>
