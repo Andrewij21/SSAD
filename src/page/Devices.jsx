@@ -21,6 +21,22 @@ const Devices = () => {
         console.error(e.toString());
       });
   }, []);
+
+  const removeHandler = (id) => {
+    console.log(id);
+    api
+      .delete("/device/" + id)
+      .then((res) => {
+        console.log("data dihapus", res);
+        // const data = res.data.data
+        setDevice((prev) => {
+          return prev.filter((data) => data._id !== id);
+        });
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+  };
   return (
     <div>
       <h1 className="text-2xl text-sky-800 font-bold capitalize">Devices</h1>
@@ -36,7 +52,7 @@ const Devices = () => {
       {showModal ? (
         <Modal toggleModel={toggleModel} title={"add device"} />
       ) : null}
-      <Table data={device} />
+      <Table data={device} removeHandler={removeHandler} />
     </div>
   );
 };

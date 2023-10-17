@@ -7,7 +7,7 @@ import { AiFillDelete, AiOutlineMore } from "react-icons/ai";
 //   { name: "device3", users: ["user3"] },
 // ];
 
-const Table = ({ data }) => {
+const Table = ({ data, removeHandler }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -48,7 +48,10 @@ const Table = ({ data }) => {
                   })}
                 </td>
                 <td className="px-6 py-4 flex flex-wrap">
-                  <button className="font-medium text-xl text-rose-600 dark:text-rose-600">
+                  <button
+                    className="font-medium text-xl text-rose-600 dark:text-rose-600"
+                    onClick={() => removeHandler(item._id)}
+                  >
                     <AiFillDelete />
                   </button>
                   <button className="font-medium text-xl text-gray-600 dark:text-slate-200">
@@ -151,6 +154,7 @@ const Table = ({ data }) => {
 
 Table.propTypes = {
   data: PropTypes.array,
+  removeHandler: PropTypes.func,
 };
 
 export default Table;
