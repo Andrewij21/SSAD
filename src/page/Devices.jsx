@@ -37,6 +37,41 @@ const Devices = () => {
         console.error(e.toString());
       });
   };
+  const addHandler = (payload) => {
+    console.log("data ditambah", payload);
+    // api
+    // .post("/device",payload)
+    // .then((res) => {
+    //   console.log("data ditambah", res);
+    //   // const data = res.data.data
+    //   // setDevice((prev) => {
+    //   //   return prev.filter((data) => data._id !== id);
+    //   // });
+    // })
+    // .catch((e) => {
+    //   console.error(e.toString());
+    // });
+  };
+
+  const verifiedHandler = (id, payload) => {
+    console.log("pauload", payload);
+    api
+      .patch("/device/" + id, { verified: payload })
+      .then((res) => {
+        console.log("data di verified", res);
+        setDevice((prev) => {
+          return prev.map((prev) => {
+            if (prev._id === id) {
+              return { ...prev, verified: payload };
+            }
+            return prev;
+          });
+        });
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+  };
   return (
     <div>
       <h1 className="text-2xl text-sky-800 font-bold capitalize">Devices</h1>
@@ -50,9 +85,17 @@ const Devices = () => {
         </button>
       </div>
       {showModal ? (
-        <Modal toggleModel={toggleModel} title={"add device"} />
+        <Modal
+          toggleModel={toggleModel}
+          addHandler={addHandler}
+          title={"add device"}
+        />
       ) : null}
-      <Table data={device} removeHandler={removeHandler} />
+      <Table
+        data={device}
+        removeHandler={removeHandler}
+        verifiedHandler={verifiedHandler}
+      />
     </div>
   );
 };

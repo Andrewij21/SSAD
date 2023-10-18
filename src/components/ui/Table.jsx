@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import { AiFillDelete, AiOutlineMore } from "react-icons/ai";
+import { AiFillDelete, AiOutlineMore, AiFillCheckCircle } from "react-icons/ai";
 
 // const datas = [
-//   { name: "Apple MacBook Pro 17", users: ["user1"] },
-//   { name: "device2", users: ["user2"] },
-//   { name: "device3", users: ["user3"] },
+//   { name: "Apple MacBook Pro 17", user: "user1" },
+//   { name: "device2", user: "user2" },
+//   { name: "device3", user: "user3" },
 // ];
 
-const Table = ({ data, removeHandler }) => {
+const Table = ({ data, removeHandler, verifiedHandler }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -16,8 +16,11 @@ const Table = ({ data, removeHandler }) => {
             <th scope="col" className="px-6 py-3 columns-4">
               Device name
             </th>
-            <th scope="col" className="px-6 py-3 columns-8">
+            <th scope="col" className="px-6 py-3 columns-4">
               User
+            </th>
+            <th scope="col" className="px-6 py-3 columns-4">
+              verified
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -38,25 +41,37 @@ const Table = ({ data, removeHandler }) => {
                   {item.name}
                 </th>
                 <td className="px-6 py-4">
-                  {item.users.map((user, i) => {
+                  {item.user}
+                  {/* {item.users.map((user, i) => {
                     return (
                       <p key={i} className="inline">
                         {user}
                         {item.users.length !== i + 1 ? "," : ""}
                       </p>
                     );
-                  })}
+                  })} */}
                 </td>
-                <td className="px-6 py-4 flex flex-wrap">
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {item.verified + ""}
+                </th>
+                <td className="px-6 py-4 flex gap-2">
                   <button
                     className="font-medium text-xl text-rose-600 dark:text-rose-600"
                     onClick={() => removeHandler(item._id)}
                   >
                     <AiFillDelete />
                   </button>
-                  <button className="font-medium text-xl text-gray-600 dark:text-slate-200">
-                    <AiOutlineMore />
-                  </button>
+                  {item.verified ? null : (
+                    <button
+                      className="font-medium text-xl text-teal-400 dark:text-slate-200"
+                      onClick={() => verifiedHandler(item._id, true)}
+                    >
+                      <AiFillCheckCircle />
+                    </button>
+                  )}
                 </td>
               </tr>
             );
@@ -155,6 +170,7 @@ const Table = ({ data, removeHandler }) => {
 Table.propTypes = {
   data: PropTypes.array,
   removeHandler: PropTypes.func,
+  verifiedHandler: PropTypes.func,
 };
 
 export default Table;
