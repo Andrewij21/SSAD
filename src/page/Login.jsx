@@ -26,6 +26,9 @@ const Login = () => {
         const msg = res.data.message;
         const code = res.data.code;
         const data = res.data.data;
+
+        if (data.roles !== "admin") throw { msg: "Unauthorized", code: 401 };
+
         isAlert({ msg, code });
         setAuth(data);
         setTimeout(() => {
@@ -35,8 +38,8 @@ const Login = () => {
       })
       .catch((e) => {
         console.error(e);
-        const msg = e.response.data.message;
-        const code = e.response.data.code;
+        const msg = e.response?.data.message || e.msg;
+        const code = e.response?.data.code || e.code;
         isAlert({ msg, code });
         setTimeout(() => {
           isAlert("");
