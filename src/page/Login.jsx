@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import Alert from "../components/ui/Alert";
-// import { useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
+import api from "../api/axios";
 
 const Login = () => {
   const {
@@ -11,15 +12,24 @@ const Login = () => {
   } = useForm({
     defaultValues: { username: "", password: "" },
   });
-  // const [error, isError] = useState("");
+  const [error, isError] = useState("");
   const loginHandler = (data) => {
-    const { username, password } = data;
-    console.log(username, password);
+    // const { username, password } = data;
+    api
+      .post("/auth", data)
+      .then((res) => {
+        console.log({ res });
+      })
+      .catch((e) => {
+        console.error(e);
+        const msg = e.response.data.message;
+        isError(msg);
+      });
   };
   return (
-    <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900 relative">
+    <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900 h-screen">
       <AnimatePresence initial={false} mode="wait">
-        <Alert />
+        {error ? <Alert msg={error} /> : null}
       </AnimatePresence>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
