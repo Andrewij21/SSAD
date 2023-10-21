@@ -22,7 +22,7 @@ const cards = [
 const Home = () => {
   return (
     <div>
-      <h1 className="text-2xl text-sky-800 font-bold capitalize mb-4">
+      <h1 className="text-2xl text-sky-600 font-bold capitalize mb-4">
         Dashboard
       </h1>
       <div className="container flex gap-8 flex-wrap">

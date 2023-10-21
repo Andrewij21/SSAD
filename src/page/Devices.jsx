@@ -74,7 +74,7 @@ const Devices = () => {
   };
   return (
     <div>
-      <h1 className="text-2xl text-sky-800 font-bold capitalize">Devices</h1>
+      <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
       <div className="flex w-full justify-end items-center my-4">
         <button
           onClick={toggleModel}
