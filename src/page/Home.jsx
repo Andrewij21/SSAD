@@ -31,7 +31,13 @@ const Home = () => {
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 200, damping: 18 }}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 18,
+              }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
               className="bg-white rounded-xl px-16 py-12 shadow-xl text-center text-4xl space-y-2 flex-1 cursor-pointer"
               key={i}
             >
