@@ -1,8 +1,7 @@
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
-
 const menus = [
   { title: "home", icon: <BiSolidDashboard />, path: "/" },
   { title: "devices", icon: <BiSolidMicrochip />, path: "/devices" },
@@ -27,19 +26,28 @@ const Sidebar = ({ menu }) => {
 
       {menus.map((page, i) => {
         return (
-          <Link to={page.path} key={i} className={`w-full `}>
+          <NavLink
+            to={page.path}
+            key={i}
+            className={({ isActive }) =>
+              isActive
+                ? "text-slate-800 bg-white pl-2 rounded-r-lg cursor-pointer"
+                : `hover:scale-110 hover:text-slate-800 hover:bg-white hover:pl-2 rounded-r-lg cursor-pointer transition duration-300 ease-in-out `
+            }
+          >
             <motion.button
-              className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-white cursor-pointer font-semibold w-full
+              className={`flex flex-row space-x-2 items-center text-xl font-semibold w-full
               ${menu ? "justify-start" : "justify-center"} 
               `}
-              whileHover={{ scale: 1.1 }}
+              // whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               {page.icon}
               <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
                 {page.title}
               </span>
             </motion.button>
-          </Link>
+          </NavLink>
         );
       })}
 
