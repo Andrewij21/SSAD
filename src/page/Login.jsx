@@ -1,14 +1,18 @@
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: { username: "", password: "" },
   });
 
   const loginHandler = (data) => {
-    console.log(data);
+    const { username, password } = data;
+    console.log(username, password);
   };
-
   return (
     <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -45,10 +49,15 @@ const Login = () => {
                   type="text"
                   name="username"
                   id="username"
-                  {...register("username", { required: true })}
+                  {...register("username", {
+                    required: "username is required",
+                  })}
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Your username..."
                 />
+                <p className="text-pink-600 lowercase text-sm">
+                  {errors.username?.message}
+                </p>
               </div>
               <div>
                 <label
@@ -61,10 +70,15 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: "password is required",
+                  })}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
+                <p className="text-pink-600 lowercase text-sm">
+                  {errors.password?.message}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
