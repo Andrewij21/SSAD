@@ -12,7 +12,7 @@ const Login = () => {
   } = useForm({
     defaultValues: { username: "", password: "" },
   });
-  const [error, isError] = useState("");
+  const [alert, isAlert] = useState("");
   const loginHandler = (data) => {
     // const { username, password } = data;
     api
@@ -20,24 +20,26 @@ const Login = () => {
       .then((res) => {
         console.log({ res });
         const msg = res.data.message;
-        isError(msg);
+        const code = res.data.code;
+        isAlert({ msg, code });
         setTimeout(() => {
-          isError("");
+          isAlert("");
         }, 3000);
       })
       .catch((e) => {
         console.error(e);
         const msg = e.response.data.message;
-        isError(msg);
+        const code = e.response.data.code;
+        isAlert({ msg, code });
         setTimeout(() => {
-          isError("");
+          isAlert("");
         }, 3000);
       });
   };
   return (
     <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900 h-screen">
       <AnimatePresence initial={false} mode="wait">
-        {error ? <Alert msg={error} /> : null}
+        {alert ? <Alert msg={alert.msg} code={alert.code} /> : null}
       </AnimatePresence>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
