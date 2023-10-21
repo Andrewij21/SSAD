@@ -19,6 +19,11 @@ const Login = () => {
       .post("/auth", data)
       .then((res) => {
         console.log({ res });
+        const msg = res.data.message;
+        isError(msg);
+        setTimeout(() => {
+          isError("");
+        }, 3000);
       })
       .catch((e) => {
         console.error(e);
