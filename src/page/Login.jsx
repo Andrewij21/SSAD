@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const {
@@ -15,6 +16,7 @@ const Login = () => {
   });
   const nav = useNavigate();
   const [alert, isAlert] = useState("");
+  const { setAuth } = useAuth();
   const loginHandler = (data) => {
     // const { username, password } = data;
     api
@@ -24,6 +26,7 @@ const Login = () => {
         const msg = res.data.message;
         const code = res.data.code;
         isAlert({ msg, code });
+        setAuth({ username: data.username });
         setTimeout(() => {
           isAlert("");
         }, 3000);
