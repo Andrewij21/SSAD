@@ -24,6 +24,9 @@ const Login = () => {
         console.error(e);
         const msg = e.response.data.message;
         isError(msg);
+        setTimeout(() => {
+          isError("");
+        }, 3000);
       });
   };
   return (
