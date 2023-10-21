@@ -14,10 +14,10 @@ const Table = ({ data, removeHandler, verifiedHandler }) => {
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3 columns-4">
-              Device name
+              Username
             </th>
             <th scope="col" className="px-6 py-3 columns-4">
-              User
+              macaddress
             </th>
             <th scope="col" className="px-6 py-3 columns-4">
               verified
