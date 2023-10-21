@@ -1,6 +1,7 @@
 import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const menus = [
   { title: "home", icon: <BiSolidDashboard />, path: "/" },
@@ -27,16 +28,17 @@ const Sidebar = ({ menu }) => {
       {menus.map((page, i) => {
         return (
           <Link to={page.path} key={i} className={`w-full `}>
-            <button
-              className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-slate-200 cursor-pointer font-semibold w-full
+            <motion.button
+              className={`flex flex-row space-x-2 items-center text-xl rounded-r-lg focus:px-2 focus:text-slate-800 focus:bg-white cursor-pointer font-semibold w-full
               ${menu ? "justify-start" : "justify-center"} 
               `}
+              whileHover={{ scale: 1.1 }}
             >
               {page.icon}
               <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
                 {page.title}
               </span>
-            </button>
+            </motion.button>
           </Link>
         );
       })}
