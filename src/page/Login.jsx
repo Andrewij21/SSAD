@@ -25,8 +25,9 @@ const Login = () => {
         console.log({ res });
         const msg = res.data.message;
         const code = res.data.code;
+        const data = res.data.data;
         isAlert({ msg, code });
-        setAuth({ username: data.username });
+        setAuth(data);
         setTimeout(() => {
           isAlert("");
         }, 3000);
