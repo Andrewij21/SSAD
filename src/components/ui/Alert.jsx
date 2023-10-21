@@ -19,6 +19,9 @@ const dropIn = {
   exit: {
     y: "-100vh",
     opacity: 0,
+    transition: {
+      duration: 2,
+    },
   },
 };
 
