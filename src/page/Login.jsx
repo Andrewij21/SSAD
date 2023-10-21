@@ -1,4 +1,14 @@
+import { useForm } from "react-hook-form";
+
 const Login = () => {
+  const { register, handleSubmit } = useForm({
+    defaultValues: { username: "", password: "" },
+  });
+
+  const loginHandler = (data) => {
+    console.log(data);
+  };
+
   return (
     <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -20,7 +30,10 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-sky-600 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form
+              className="space-y-4 md:space-y-6"
+              onSubmit={handleSubmit(loginHandler)}
+            >
               <div>
                 <label
                   htmlFor="username"
@@ -32,9 +45,9 @@ const Login = () => {
                   type="text"
                   name="username"
                   id="username"
+                  {...register("username", { required: true })}
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Your username..."
-                  required
                 />
               </div>
               <div>
@@ -48,9 +61,9 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
+                  {...register("password", { required: true })}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
                 />
               </div>
               <div className="flex items-center justify-between">
