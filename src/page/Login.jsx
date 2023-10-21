@@ -57,6 +57,11 @@ const Login = () => {
                   id="username"
                   {...register("username", {
                     required: "username is required",
+                    pattern: {
+                      value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                      message:
+                        "Entered value cant start/end with white spacing",
+                    },
                   })}
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Your username..."
@@ -78,6 +83,11 @@ const Login = () => {
                   id="password"
                   {...register("password", {
                     required: "password is required",
+                    pattern: {
+                      value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                      message:
+                        "Entered value cant start/end with white spacing",
+                    },
                   })}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
