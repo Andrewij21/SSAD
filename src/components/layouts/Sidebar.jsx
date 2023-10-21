@@ -10,13 +10,13 @@ const menus = [
 
 const Sidebar = ({ menu }) => {
   return (
-    <div className="min-h-screen p-6 flex flex-col gap-4 bg-sky-800 text-slate-200 shadow-sm">
+    <div className="min-h-screen p-6 flex flex-col gap-4 bg-sky-600 text-slate-200 shadow-sm">
       <div
         className={`space-y-2 border-b-4 border-white ${
           menu ? "text-left" : "text-center"
         }`}
       >
-        <span className="uppercase text-xl lg:text-2xl font-extrabold text-sky-400 ">
+        <span className="uppercase text-xl lg:text-2xl font-extrabold text-white ">
           SSAD
         </span>
         <h1 className={`tracking-wide pb-4 ${menu ? "text-sm" : "text-xs"}`}>
