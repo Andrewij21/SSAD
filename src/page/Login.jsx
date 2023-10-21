@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import Alert from "../components/ui/Alert";
+// import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 const Login = () => {
   const {
@@ -8,13 +11,16 @@ const Login = () => {
   } = useForm({
     defaultValues: { username: "", password: "" },
   });
-
+  // const [error, isError] = useState("");
   const loginHandler = (data) => {
     const { username, password } = data;
     console.log(username, password);
   };
   return (
-    <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900">
+    <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900 relative">
+      <AnimatePresence initial={false} mode="wait">
+        <Alert />
+      </AnimatePresence>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
           href="#"
