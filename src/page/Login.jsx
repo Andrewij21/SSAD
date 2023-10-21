@@ -3,6 +3,7 @@ import Alert from "../components/ui/Alert";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -12,6 +13,7 @@ const Login = () => {
   } = useForm({
     defaultValues: { username: "", password: "" },
   });
+  const nav = useNavigate();
   const [alert, isAlert] = useState("");
   const loginHandler = (data) => {
     // const { username, password } = data;
@@ -25,6 +27,7 @@ const Login = () => {
         setTimeout(() => {
           isAlert("");
         }, 3000);
+        nav("/");
       })
       .catch((e) => {
         console.error(e);
