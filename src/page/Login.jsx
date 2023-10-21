@@ -86,7 +86,7 @@ const Login = () => {
               >
                 Sign in
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+              {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
                   href="#"
@@ -94,7 +94,7 @@ const Login = () => {
                 >
                   Sign up
                 </a>
-              </p>
+              </p> */}
             </form>
           </div>
         </div>
