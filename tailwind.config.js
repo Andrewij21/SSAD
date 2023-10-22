@@ -2,7 +2,11 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        clamp: "(50%,700px,90%)",
+      },
+    },
   },
   plugins: [],
 };
