@@ -7,21 +7,19 @@ import { AiFillDelete, AiOutlineMore, AiFillCheckCircle } from "react-icons/ai";
 //   { name: "device3", user: "user3" },
 // ];
 
-const Table = ({ data, removeHandler, verifiedHandler }) => {
+const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="px-6 py-3 columns-4">
-              Username
-            </th>
-            <th scope="col" className="px-6 py-3 columns-4">
-              macaddress
-            </th>
-            <th scope="col" className="px-6 py-3 columns-4">
-              verified
-            </th>
+            {tHead.map((head, i) => {
+              return (
+                <th scope="col" className="px-6 py-3" key={i}>
+                  {head}
+                </th>
+              );
+            })}
             <th scope="col" className="px-6 py-3">
               Action
             </th>
@@ -169,6 +167,7 @@ const Table = ({ data, removeHandler, verifiedHandler }) => {
 
 Table.propTypes = {
   data: PropTypes.array,
+  tHead: PropTypes.array,
   removeHandler: PropTypes.func,
   verifiedHandler: PropTypes.func,
 };
