@@ -57,7 +57,7 @@ const Modal = ({ toggleModel, title }) => {
                       htmlFor="first_name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      {title}
+                      Device Name
                     </label>
                     <input
                       type="text"
@@ -72,7 +72,7 @@ const Modal = ({ toggleModel, title }) => {
                       htmlFor="first_name"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
-                      User
+                      Macaddress
                     </label>
                     <input
                       type="text"
