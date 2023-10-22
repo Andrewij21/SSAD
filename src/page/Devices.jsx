@@ -3,6 +3,8 @@ import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
 import api from "../api/axios";
+import { motion } from "framer-motion";
+
 const tHead = ["devices", "macaddress", "verified"];
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
@@ -76,13 +78,15 @@ const Devices = () => {
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
       <div className="flex w-full justify-end items-center my-4">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={toggleModel}
           className="flex gap-1 flex-row items-center bg-teal-400 px-4 py-2 rounded-lg hover:bg-teal-500 hover:ring-teal-400 hover:ring-2 text-white"
         >
           <BsPlus className="font-bold text-xl" />
           <span className="capitalize text-sm font-semibold">add Device</span>
-        </button>
+        </motion.button>
       </div>
       {showModal ? (
         <Modal
