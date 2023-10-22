@@ -65,7 +65,7 @@ const Personeles = () => {
           className="flex gap-1 flex-row items-center bg-teal-400 px-4 py-2 rounded-lg hover:bg-teal-500 hover:ring-teal-400 hover:ring-2 text-white"
         >
           <BsPlus className="font-bold text-xl" />
-          <span className="capitalize text-sm font-semibold">add Device</span>
+          <span className="capitalize text-sm font-semibold">add Personel</span>
         </motion.button>
       </div>
       <Table data={device} tHead={tHead} removeHandler={removeHandler} />
@@ -74,7 +74,7 @@ const Personeles = () => {
           <Modal
             toggleModel={toggleModel}
             addHandler={addHandler}
-            title={"add device"}
+            title={"add personel"}
           />
         )}
       </AnimatePresence>
