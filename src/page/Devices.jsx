@@ -98,7 +98,7 @@ const Devices = () => {
         {showModal && (
           <Modal
             toggleModel={toggleModel}
-            addHandler={addHandler}
+            submitHandler={addHandler}
             title={"add device"}
           />
         )}
