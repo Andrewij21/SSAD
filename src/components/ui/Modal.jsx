@@ -1,10 +1,43 @@
+import { motion } from "framer-motion";
 import propTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
+import Backdrop from "./Backdrop";
+
+const dropIn = {
+  hidden: {
+    y: "-100vh",
+    opacity: 0,
+  },
+  visible: {
+    y: "0",
+    opacity: 1,
+    transition: {
+      duration: 0.1,
+      type: "spring",
+      damping: 100,
+      stiffness: 500,
+    },
+  },
+  exit: {
+    y: "-100vh",
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 const Modal = ({ toggleModel, title }) => {
   return (
-    <>
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+    <Backdrop onClick={toggleModel}>
+      <motion.div
+        onClick={(e) => e.stopPropagation()}
+        className="justify-center items-center flex w-clamp flex-col px-8"
+        variants={dropIn}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+      >
         <div className="relative w-auto my-6 mx-auto max-w-3xl">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col min-w-[300px] md:w-[500px] bg-white outline-none focus:outline-none">
@@ -53,9 +86,9 @@ const Modal = ({ toggleModel, title }) => {
               </form>
             </div>
             {/*footer*/}
-            <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+            <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
               <button
-                className="bg-emerald-400 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="bg-emerald-400 text-white active:bg-emerald-600 font-bold uppercase text-sm md:px-6 md:py-3 py-1 px-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
                 onClick={() => toggleModel()}
               >
@@ -64,9 +97,8 @@ const Modal = ({ toggleModel, title }) => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </>
+      </motion.div>
+    </Backdrop>
   );
 };
 
