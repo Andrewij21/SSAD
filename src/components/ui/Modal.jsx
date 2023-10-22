@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import propTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import Backdrop from "./Backdrop";
+import { useForm } from "react-hook-form";
 
 const dropIn = {
   hidden: {
@@ -27,7 +28,14 @@ const dropIn = {
   },
 };
 
-const Modal = ({ toggleModel, title }) => {
+const Modal = ({ toggleModel, title, submitHandler }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { name: "", user: "" },
+  });
   return (
     <Backdrop onClick={toggleModel}>
       <motion.div
@@ -50,43 +58,73 @@ const Modal = ({ toggleModel, title }) => {
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              <form>
-                <div className="gap-6 mb-6 flex flex-col">
-                  <div className="w-full">
-                    <label
-                      htmlFor="first_name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Device Name
-                    </label>
-                    <input
-                      type="text"
-                      id="first_name"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none "
-                      placeholder="Shacker"
-                      required
-                    />
-                  </div>
-                  <div className="w-full">
-                    <label
-                      htmlFor="first_name"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Macaddress
-                    </label>
-                    <input
-                      type="text"
-                      id="first_name"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 outline-none "
-                      placeholder="John"
-                      required
-                    />
-                  </div>
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={handleSubmit(submitHandler)}
+              >
+                <div>
+                  <label
+                    htmlFor="device"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Device
+                  </label>
+                  <input
+                    type="text"
+                    name="device"
+                    id="device"
+                    {...register("name", {
+                      required: "device name is required",
+                      pattern: {
+                        value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                        message:
+                          "Entered value cant start/end with white spacing",
+                      },
+                    })}
+                    className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="shacker-01"
+                  />
+                  <p className="text-pink-600 lowercase text-sm">
+                    {errors.name?.message}
+                  </p>
+                </div>
+                <div>
+                  <label
+                    htmlFor="macaddress"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    macaddress
+                  </label>
+                  <input
+                    type="text"
+                    name="macaddress"
+                    id="macaddress"
+                    {...register("user", {
+                      pattern: {
+                        value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                        message:
+                          "Entered value cant start/end with white spacing",
+                      },
+                    })}
+                    placeholder="00:B0:D0:63:C2:26"
+                    className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                  <p className="text-pink-600 lowercase text-sm">
+                    {errors.user?.message}
+                  </p>
+                </div>
+                <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  <button
+                    type="submit"
+                    className="w-28 text-white bg-emerald-400 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 uppercase dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    submit
+                  </button>
                 </div>
               </form>
             </div>
             {/*footer*/}
-            <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+            {/* <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
               <button
                 className="bg-emerald-400 text-white active:bg-emerald-600 font-bold uppercase text-sm md:px-6 md:py-3 py-1 px-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
@@ -94,7 +132,7 @@ const Modal = ({ toggleModel, title }) => {
               >
                 Save Changes
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </motion.div>
@@ -104,6 +142,7 @@ const Modal = ({ toggleModel, title }) => {
 
 Modal.propTypes = {
   toggleModel: propTypes.func,
+  submitHandler: propTypes.func,
   title: propTypes.string,
 };
 
