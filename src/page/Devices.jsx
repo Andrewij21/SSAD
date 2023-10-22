@@ -3,7 +3,7 @@ import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
 import api from "../api/axios";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const tHead = ["devices", "macaddress", "verified"];
 const Devices = () => {
@@ -88,19 +88,21 @@ const Devices = () => {
           <span className="capitalize text-sm font-semibold">add Device</span>
         </motion.button>
       </div>
-      {showModal ? (
-        <Modal
-          toggleModel={toggleModel}
-          addHandler={addHandler}
-          title={"add device"}
-        />
-      ) : null}
       <Table
         data={device}
         tHead={tHead}
         removeHandler={removeHandler}
         verifiedHandler={verifiedHandler}
       />
+      <AnimatePresence initial={true} mode="wait">
+        {showModal && (
+          <Modal
+            toggleModel={toggleModel}
+            addHandler={addHandler}
+            title={"add device"}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
