@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import Modal from "../components/ui/Modal";
+// import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
-import { BsPlus } from "react-icons/bs";
+// import { BsPlus } from "react-icons/bs";
 import api from "../api/axios";
-import { AnimatePresence, motion } from "framer-motion";
+// import { AnimatePresence, motion } from "framer-motion";
 
 const tHead = ["username", "devices", "role"];
 const Personeles = () => {
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
-  const toggleModel = () => {
-    setShowModal(!showModal);
-  };
+  // const toggleModel = () => {
+  //   setShowModal(!showModal);
+  // };
   useEffect(() => {
     api
       .get("/user")
@@ -38,27 +38,27 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
-  const addHandler = (payload) => {
-    console.log("data ditambah", payload);
-    // api
-    // .post("/device",payload)
-    // .then((res) => {
-    //   console.log("data ditambah", res);
-    //   // const data = res.data.data
-    //   // setDevice((prev) => {
-    //   //   return prev.filter((data) => data._id !== id);
-    //   // });
-    // })
-    // .catch((e) => {
-    //   console.error(e.toString());
-    // });
-  };
+  // const addHandler = (payload) => {
+  //   console.log("data ditambah", payload);
+  //   api
+  //   .post("/device",payload)
+  //   .then((res) => {
+  //     console.log("data ditambah", res);
+  //     // const data = res.data.data
+  //     // setDevice((prev) => {
+  //     //   return prev.filter((data) => data._id !== id);
+  //     // });
+  //   })
+  //   .catch((e) => {
+  //     console.error(e.toString());
+  //   });
+  // };
 
   return (
     <div>
-      <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
+      <h1 className="text-2xl text-sky-600 font-bold capitalize">Personels</h1>
       <div className="flex w-full justify-end items-center my-4">
-        <motion.button
+        {/* <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={toggleModel}
@@ -66,10 +66,10 @@ const Personeles = () => {
         >
           <BsPlus className="font-bold text-xl" />
           <span className="capitalize text-sm font-semibold">add Personel</span>
-        </motion.button>
+        </motion.button> */}
       </div>
       <Table data={device} tHead={tHead} removeHandler={removeHandler} />
-      <AnimatePresence initial={true} mode="wait">
+      {/* <AnimatePresence initial={true} mode="wait">
         {showModal && (
           <Modal
             toggleModel={toggleModel}
@@ -77,7 +77,7 @@ const Personeles = () => {
             title={"add personel"}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
     </div>
   );
 };
