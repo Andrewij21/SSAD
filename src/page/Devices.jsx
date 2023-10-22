@@ -3,7 +3,7 @@ import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
 import api from "../api/axios";
-
+const tHead = ["devices", "macaddress", "verified"];
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
@@ -93,6 +93,7 @@ const Devices = () => {
       ) : null}
       <Table
         data={device}
+        tHead={tHead}
         removeHandler={removeHandler}
         verifiedHandler={verifiedHandler}
       />
