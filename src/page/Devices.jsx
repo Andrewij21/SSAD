@@ -16,7 +16,7 @@ const Devices = () => {
     api
       .get("/device")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setDevice(res.data.data);
       })
       .catch((e) => {
@@ -40,19 +40,20 @@ const Devices = () => {
       });
   };
   const addHandler = (payload) => {
-    console.log("data ditambah", payload);
-    // api
-    // .post("/device",payload)
-    // .then((res) => {
-    //   console.log("data ditambah", res);
-    //   // const data = res.data.data
-    //   // setDevice((prev) => {
-    //   //   return prev.filter((data) => data._id !== id);
-    //   // });
-    // })
-    // .catch((e) => {
-    //   console.error(e.toString());
-    // });
+    // console.log("data ditambah", payload);
+    api
+      .post("/device", payload)
+      .then((res) => {
+        console.log("data ditambah", res);
+        const data = res.data.data;
+        console.log(data);
+        setDevice((prev) => {
+          return [...prev, { ...data, verified: false }];
+        });
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
   };
 
   const verifiedHandler = (id, payload) => {
