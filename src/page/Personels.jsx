@@ -26,7 +26,7 @@ const Personeles = () => {
   const removeHandler = (id) => {
     console.log(id);
     api
-      .delete("/device/" + id)
+      .delete("/user/" + id)
       .then((res) => {
         console.log("data dihapus", res);
         // const data = res.data.data
