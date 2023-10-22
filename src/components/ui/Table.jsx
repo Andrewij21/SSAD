@@ -39,7 +39,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                   {item.name || item.username}
                 </th>
                 <td className="px-6 py-4">
-                  {item.user || "item.devices"}
+                  {item.user || null}
                   {/* {item.users.map((user, i) => {
                     return (
                       <p key={i} className="inline">
