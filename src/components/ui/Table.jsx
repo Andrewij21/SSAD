@@ -36,10 +36,10 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {item.name}
+                  {item.name || item.username}
                 </th>
                 <td className="px-6 py-4">
-                  {item.user}
+                  {item.user || "item.devices"}
                   {/* {item.users.map((user, i) => {
                     return (
                       <p key={i} className="inline">
@@ -53,7 +53,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {item.verified + ""}
+                  {item.roles || item.verified + ""}
                 </th>
                 <td className="px-6 py-4 flex gap-2">
                   <button
@@ -62,7 +62,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                   >
                     <AiFillDelete />
                   </button>
-                  {item.verified ? null : (
+                  {item.verified || item.verified != true ? null : (
                     <button
                       className="font-medium text-xl text-teal-400 dark:text-slate-200"
                       onClick={() => verifiedHandler(item._id, true)}
