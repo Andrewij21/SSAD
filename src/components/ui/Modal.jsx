@@ -42,8 +42,8 @@ const Modal = ({ toggleModel, title }) => {
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col min-w-[300px] md:w-[500px] bg-white outline-none focus:outline-none">
             {/*header*/}
-            <div className="flex items-center justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Add Device</h3>
+            <div className="flex items-center justify-between p-5 border-b border-solid border-blueGray-200 rounded-t capitalize">
+              <h3 className="text-3xl font-semibold">{title}</h3>
               <button className="text-2xl" onClick={() => toggleModel()}>
                 <AiOutlineClose />
               </button>
