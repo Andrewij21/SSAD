@@ -1,20 +1,43 @@
 import { BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import { motion } from "framer-motion";
-
-const cards = [
-  {
-    name: "personles",
-    amount: 0,
-    icon: <BiGroup className="mx-auto fill-sky-400" />,
-  },
-  {
-    name: "devices",
-    amount: 0,
-    icon: <BiSolidMicrochip className="mx-auto fill-yellow-400" />,
-  },
-];
+import { useEffect, useState } from "react";
+import api from "../api/axios";
 
 const Home = () => {
+  const [personelCount, setPersonelCount] = useState(0);
+  const [deviceCount, setDeviceCount] = useState(0);
+  const cards = [
+    {
+      name: "personel",
+      amount: personelCount,
+      icon: <BiGroup className="mx-auto fill-sky-400" />,
+    },
+    {
+      name: "device",
+      amount: deviceCount,
+      icon: <BiSolidMicrochip className="mx-auto fill-yellow-400" />,
+    },
+  ];
+  useEffect(() => {
+    api
+      .get(`/device/count`)
+      .then((res) => {
+        const length = res.data.data.length;
+        setDeviceCount(length);
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+    api
+      .get(`/user/count`)
+      .then((res) => {
+        const length = res.data.data.length;
+        setPersonelCount(length);
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+  }, []);
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize mb-4">
