@@ -16,7 +16,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
             {tHead.map((head, i) => {
               return (
                 <th scope="col" className="px-6 py-3" key={i}>
-                  {head}
+                  {head.head}
                 </th>
               );
             })}
@@ -32,29 +32,17 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                 className="odd:bg-white even:bg-gray-50 border-b odd:dark:bg-gray-900 even:dark:bg-gray-800 dark:border-gray-700"
                 key={i}
               >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {item.name || item.username}
-                </th>
-                <td className="px-6 py-4">
-                  {item.user || null}
-                  {/* {item.users.map((user, i) => {
-                    return (
-                      <p key={i} className="inline">
-                        {user}
-                        {item.users.length !== i + 1 ? "," : ""}
-                      </p>
-                    );
-                  })} */}
-                </td>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {item.roles || item.verified + ""}
-                </th>
+                {tHead.map((head, i) => {
+                  return (
+                    <td
+                      scope="row"
+                      key={i}
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {item[head.prop] + ""}
+                    </td>
+                  );
+                })}
                 <td className="px-6 py-4 flex gap-2">
                   <button
                     className="font-medium text-xl text-rose-600 dark:text-rose-600"
