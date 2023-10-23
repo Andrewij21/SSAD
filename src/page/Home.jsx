@@ -8,11 +8,6 @@ const cards = [
     icon: <BiGroup className="mx-auto fill-sky-400" />,
   },
   {
-    name: "Unregisted Personels",
-    amount: 0,
-    icon: <BiGroup className="mx-auto fill-rose-400" />,
-  },
-  {
     name: "devices",
     amount: 0,
     icon: <BiSolidMicrochip className="mx-auto fill-yellow-400" />,
