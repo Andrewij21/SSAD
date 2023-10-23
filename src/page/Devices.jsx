@@ -5,7 +5,13 @@ import { BsPlus } from "react-icons/bs";
 import api from "../api/axios";
 import { AnimatePresence, motion } from "framer-motion";
 
-const tHead = ["devices", "macaddress", "verified"];
+// const tHead = ["devices", "macaddress", "verified"];
+const tHead = [
+  { head: "devices", prop: "name" },
+  { head: "macaddress", prop: "user" },
+  { head: "status", prop: "status" },
+  { head: "verified", prop: "verified" },
+];
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);

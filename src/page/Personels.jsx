@@ -5,7 +5,13 @@ import Table from "../components/ui/Table";
 import api from "../api/axios";
 // import { AnimatePresence, motion } from "framer-motion";
 
-const tHead = ["username", "devices", "role"];
+// const tHead = ["username", "devices", "area", "role"];
+const tHead = [
+  { head: "username", prop: "username" },
+  { head: "devices", prop: "devices" },
+  { head: "area", prop: "area" },
+  { head: "role", prop: "roles" },
+];
 const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
