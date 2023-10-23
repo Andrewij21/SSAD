@@ -51,7 +51,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                     </td>
                   );
                 })}
-                <td className="px-6 py-4 flex gap-2">
+                <td className="px-6 py-4 space-x-2">
                   <button
                     className="font-medium text-xl text-rose-600 dark:text-rose-600"
                     onClick={() => removeHandler(item._id)}
