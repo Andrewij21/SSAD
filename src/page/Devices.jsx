@@ -54,7 +54,7 @@ const Devices = () => {
         const data = res.data.data;
         console.log(data);
         setDevice((prev) => {
-          return [...prev, { ...data, verified: false }];
+          return [...prev, { ...data, verified: false, status: false }];
         });
       })
       .catch((e) => {
