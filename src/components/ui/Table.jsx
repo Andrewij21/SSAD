@@ -39,7 +39,15 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                       key={i}
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {item[head.prop] + ""}
+                      {Array.isArray(item[head.prop])
+                        ? item[head.prop].map((item, i) => {
+                            return (
+                              <li key={i} className="list-disc">
+                                {item}
+                              </li>
+                            );
+                          })
+                        : item[head.prop] + ""}
                     </td>
                   );
                 })}
