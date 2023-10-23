@@ -58,7 +58,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                   >
                     <AiFillDelete />
                   </button>
-                  {item.verified || item.verified != true ? null : (
+                  {item.verified == null || item.verified == true ? null : (
                     <button
                       className="font-medium text-xl text-teal-400 dark:text-slate-200"
                       onClick={() => verifiedHandler(item._id, true)}
