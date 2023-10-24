@@ -6,7 +6,7 @@ const useRefreshToken = () => {
 
   const refresh = async () => {
     try {
-      const response = await axios.get("/refresh-token", {
+      const response = await axios.get("/auth/refresh-token", {
         withCredentials: true,
       });
       console.log({ response });
@@ -21,7 +21,7 @@ const useRefreshToken = () => {
       });
       return response.data.data.accessToken;
     } catch (error) {
-      console.error(error);
+      console.error({ error });
     }
   };
 
