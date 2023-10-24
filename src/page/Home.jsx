@@ -1,11 +1,14 @@
 import { BiSolidMicrochip, BiGroup } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import api from "../api/axios";
+// import api from "../api/axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const Home = () => {
   const [personelCount, setPersonelCount] = useState(0);
   const [deviceCount, setDeviceCount] = useState(0);
+  const axiosPrivate = useAxiosPrivate();
+
   const cards = [
     {
       name: "personel",
@@ -19,25 +22,27 @@ const Home = () => {
     },
   ];
   useEffect(() => {
-    api
+    axiosPrivate
       .get(`/device/count`)
       .then((res) => {
         const length = res.data.data.length;
         setDeviceCount(length);
       })
       .catch((e) => {
-        console.error(e.toString());
+        const error = e.response;
+        console.error({ status: error.status, msg: error.data.error });
       });
-    api
+    axiosPrivate
       .get(`/user/count`)
       .then((res) => {
         const length = res.data.data.length;
         setPersonelCount(length);
       })
       .catch((e) => {
-        console.error(e.toString());
+        const error = e.response;
+        console.error({ status: error.status, msg: error.data.error });
       });
-  }, []);
+  }, [axiosPrivate]);
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize mb-4">
