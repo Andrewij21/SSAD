@@ -20,7 +20,10 @@ const Login = () => {
   const loginHandler = (data) => {
     // const { username, password } = data;
     api
-      .post("/auth", data)
+      .post("/auth", data, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
       .then((res) => {
         console.log({ res });
         const msg = res.data.message;
