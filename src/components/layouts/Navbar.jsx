@@ -1,18 +1,26 @@
 import { BiMenu, BiSolidUser, BiBell } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = ({ action }) => {
+  const { auth } = useAuth();
+  console.log({ auth });
   const [menu, setMenu] = useState(false);
   return (
     <nav className="bg-white shadow-md text-slate-800 dark:bg-slate-800 dark:text-slate-200 h-[8vh] flex items-center justify-between px-4">
       <button className="text-2xl" onClick={action}>
         <BiMenu />
       </button>
-      <ul className="flex gap-6 text-xl">
+      <ul className="flex text-xl">
         <li className="">
           <div className="cursor-pointer hover:bg-gray-400 hover:bg-opacity-25 rounded-full p-2">
             <BiBell />
+          </div>
+        </li>
+        <li className="">
+          <div className="p-2 text-sm text-gray-900 dark:text-white">
+            <div className="font-medium truncate">{auth.username}</div>
           </div>
         </li>
         <li className="relative">
@@ -25,12 +33,8 @@ const Navbar = ({ action }) => {
           {menu && (
             <div
               id="dropdownAvatar"
-              className="z-10 absolute right-0 top-22 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+              className="z-10 absolute right-0 top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
             >
-              <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                <div>Bonnie Green</div>
-                <div className="font-medium truncate">name@flowbite.com</div>
-              </div>
               <ul
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownUserAvatarButton"
@@ -61,10 +65,7 @@ const Navbar = ({ action }) => {
                 </li> */}
               </ul>
               <div className="py-2 px-4 text-center">
-                <button
-                  href="#"
-                  className="block px-4 py-2 text-sm rounded-lg w-full bg-rose-600 text-white hover:bg-rose-700 dark:hover:bg-rose-700 dark:text-white dark:bg-rose-600"
-                >
+                <button className="block px-4 py-2 text-sm rounded-lg w-full bg-rose-600 text-white hover:bg-rose-700 dark:hover:bg-rose-700 dark:text-white dark:bg-rose-600">
                   Sign out
                 </button>
               </div>
