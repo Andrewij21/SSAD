@@ -59,7 +59,7 @@ const Modal = ({ toggleModel, title, submitHandler }) => {
             {/*body*/}
             <div className="relative p-6 flex-auto">
               <form
-                className="space-y-4 md:space-y-6"
+                className="space-y-4 md:space-y-6 text-left"
                 onSubmit={handleSubmit(submitHandler)}
               >
                 <div>
