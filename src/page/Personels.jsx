@@ -34,8 +34,20 @@ const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
-  const editHandler = (payload) => {
-    console.log({ payload });
+  const editHandler = (payload, id) => {
+    console.log({ payload, id });
+    // axiosPrivate
+    // .delete("/user/" + id)
+    // .then((res) => {
+    //   console.log("data dihapus", res);
+    //   // const data = res.data.data
+    //   setDevice((prev) => {
+    //     return prev.filter((data) => data._id !== id);
+    //   });
+    // })
+    // .catch((e) => {
+    //   console.error(e.toString());
+    // });
   };
 
   // const toggleModel = () => {
