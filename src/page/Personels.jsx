@@ -14,7 +14,22 @@ const tHead = [
   { head: "role", prop: "roles" },
 ];
 
-const actions = { delete: true, edit: true, verified: false };
+const fields = [
+  {
+    type: "text",
+    name: "password",
+    label: "Reset password",
+    required: true,
+    focus: true,
+  },
+];
+
+const actions = {
+  delete: true,
+  edit: { value: true, props: fields },
+  verified: false,
+};
+
 const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
