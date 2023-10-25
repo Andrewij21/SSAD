@@ -15,6 +15,12 @@ const tHead = [
 ];
 
 const actions = { delete: true, edit: false, verified: true };
+
+const fields = [
+  { type: "text", name: "name", label: "device", required: true },
+  { type: "text", name: "user", label: "macaddress", required: false },
+];
+
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
@@ -114,6 +120,7 @@ const Devices = () => {
             toggleModel={toggleModel}
             submitHandler={addHandler}
             title={"add device"}
+            fields={fields}
           />
         )}
       </AnimatePresence>
