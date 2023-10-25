@@ -10,12 +10,16 @@ import { AnimatePresence } from "framer-motion";
 //   { name: "device3", user: "user3" },
 // ];
 
-const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
+const Table = ({
+  data,
+  removeHandler,
+  editHandler,
+  verifiedHandler,
+  tHead,
+  actions,
+  title,
+}) => {
   const [edit, setEdit] = useState(false);
-
-  const editHandler = (payload) => {
-    console.log({ payload });
-  };
 
   const toggleEdit = () => {
     setEdit(!edit);
@@ -118,7 +122,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
           <Modal
             toggleModel={toggleEdit}
             submitHandler={editHandler}
-            title={"add device"}
+            title={title}
             fields={actions.edit.props}
           />
         )}
@@ -132,7 +136,9 @@ Table.propTypes = {
   tHead: PropTypes.array,
   actions: PropTypes.object,
   removeHandler: PropTypes.func,
+  editHandler: PropTypes.func,
   verifiedHandler: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export default Table;

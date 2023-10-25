@@ -34,6 +34,9 @@ const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
+  const editHandler = (payload) => {
+    console.log({ payload });
+  };
 
   // const toggleModel = () => {
   //   setShowModal(!showModal);
@@ -99,6 +102,8 @@ const Personeles = () => {
         tHead={tHead}
         actions={actions}
         removeHandler={removeHandler}
+        editHandler={editHandler}
+        title={"Edit password"}
       />
       {/* <AnimatePresence initial={true} mode="wait">
         {showModal && (
