@@ -7,7 +7,7 @@ import { AiFillDelete, AiOutlineMore, AiFillCheckCircle } from "react-icons/ai";
 //   { name: "device3", user: "user3" },
 // ];
 
-const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
+const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -53,14 +53,26 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
                 })}
                 <td className="px-6 py-4 space-x-2">
                   <button
-                    className="font-medium text-xl text-rose-600 dark:text-rose-600"
+                    className={`font-medium text-xl text-rose-600 ${
+                      actions.delete ? "" : "hidden"
+                    }`}
                     onClick={() => removeHandler(item._id)}
                   >
                     <AiFillDelete />
                   </button>
-                  {item.verified == null || item.verified == true ? null : (
+                  <button
+                    className={`font-medium text-xl text-gray-600 ${
+                      actions.edit ? "" : "hidden"
+                    }`}
+                    onClick={() => removeHandler(item._id)}
+                  >
+                    <AiOutlineMore />
+                  </button>
+                  {item.verified == true ? null : (
                     <button
-                      className="font-medium text-xl text-teal-400 dark:text-slate-200"
+                      className={`font-medium text-xl text-teal-400 dark:text-slate-200 ${
+                        actions.verified ? "" : "hidden"
+                      }`}
                       onClick={() => verifiedHandler(item._id, true)}
                     >
                       <AiFillCheckCircle />
@@ -70,91 +82,6 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
               </tr>
             );
           })}
-          {/* <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              Apple MacBook Pro 17
-            </th>
-            <td className="px-6 py-4">Laptop</td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              Microsoft Surface Pro
-            </th>
-            <td className="px-6 py-4">White</td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              Magic Mouse 2
-            </th>
-            <td className="px-6 py-4">Black</td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              Google Pixel Phone
-            </th>
-            <td className="px-6 py-4">Gray</td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              Apple Watch 5
-            </th>
-            <td className="px-6 py-4">Red</td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr> */}
         </tbody>
       </table>
     </div>
@@ -164,6 +91,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead }) => {
 Table.propTypes = {
   data: PropTypes.array,
   tHead: PropTypes.array,
+  actions: PropTypes.object,
   removeHandler: PropTypes.func,
   verifiedHandler: PropTypes.func,
 };
