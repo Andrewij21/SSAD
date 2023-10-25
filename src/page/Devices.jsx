@@ -59,6 +59,7 @@ const Devices = () => {
         setDevice((prev) => {
           return [...prev, { ...data, verified: false, status: false }];
         });
+        setShowModal(!showModal);
       })
       .catch((e) => {
         console.error(e.toString());
