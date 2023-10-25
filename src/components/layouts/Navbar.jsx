@@ -35,7 +35,7 @@ const Navbar = ({ action }) => {
                 className="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownUserAvatarButton"
               >
-                <li>
+                {/* <li>
                   <a
                     href="#"
                     className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -58,15 +58,15 @@ const Navbar = ({ action }) => {
                   >
                     Earnings
                   </a>
-                </li>
+                </li> */}
               </ul>
-              <div className="py-2">
-                <a
+              <div className="py-2 px-4 text-center">
+                <button
                   href="#"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  className="block px-4 py-2 text-sm rounded-lg w-full bg-rose-600 text-white hover:bg-rose-700 dark:hover:bg-rose-700 dark:text-white dark:bg-rose-600"
                 >
                   Sign out
-                </a>
+                </button>
               </div>
             </div>
           )}
