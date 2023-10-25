@@ -36,18 +36,18 @@ const Personeles = () => {
   const axiosPrivate = useAxiosPrivate();
   const editHandler = (payload, id) => {
     console.log({ payload, id });
-    // axiosPrivate
-    // .delete("/user/" + id)
-    // .then((res) => {
-    //   console.log("data dihapus", res);
-    //   // const data = res.data.data
-    //   setDevice((prev) => {
-    //     return prev.filter((data) => data._id !== id);
-    //   });
-    // })
-    // .catch((e) => {
-    //   console.error(e.toString());
-    // });
+    axiosPrivate
+      .patch("/user/reset-password/" + id, payload, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("data diedit", res);
+        // const data = res.data.data
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
   };
 
   // const toggleModel = () => {
