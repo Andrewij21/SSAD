@@ -20,9 +20,14 @@ const Table = ({
   title,
 }) => {
   const [edit, setEdit] = useState(false);
-
-  const toggleEdit = () => {
+  const [id, setId] = useState(null);
+  const toggleEdit = (id) => {
     setEdit(!edit);
+    setId(id);
+  };
+  const editAction = (payload) => {
+    editHandler(payload, id);
+    setEdit();
   };
 
   return (
@@ -81,7 +86,7 @@ const Table = ({
                     className={`font-medium text-xl text-gray-600 ${
                       actions.edit.value ? "" : "hidden"
                     }`}
-                    onClick={toggleEdit}
+                    onClick={() => toggleEdit(item._id)}
                   >
                     <AiOutlineMore />
                     {/* {edit && (
@@ -121,7 +126,7 @@ const Table = ({
         {edit && (
           <Modal
             toggleModel={toggleEdit}
-            submitHandler={editHandler}
+            submitHandler={editAction}
             title={title}
             fields={actions.edit.props}
           />
