@@ -13,6 +13,8 @@ const tHead = [
   { head: "area", prop: "area" },
   { head: "role", prop: "roles" },
 ];
+
+const actions = { delete: true, edit: true, verified: false };
 const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
@@ -77,7 +79,12 @@ const Personeles = () => {
           <span className="capitalize text-sm font-semibold">add Personel</span>
         </motion.button> */}
       </div>
-      <Table data={device} tHead={tHead} removeHandler={removeHandler} />
+      <Table
+        data={device}
+        tHead={tHead}
+        actions={actions}
+        removeHandler={removeHandler}
+      />
       {/* <AnimatePresence initial={true} mode="wait">
         {showModal && (
           <Modal

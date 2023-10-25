@@ -13,6 +13,8 @@ const tHead = [
   { head: "status", prop: "status" },
   { head: "verified", prop: "verified" },
 ];
+
+const actions = { delete: true, edit: false, verified: true };
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
@@ -104,6 +106,7 @@ const Devices = () => {
         tHead={tHead}
         removeHandler={removeHandler}
         verifiedHandler={verifiedHandler}
+        actions={actions}
       />
       <AnimatePresence initial={true} mode="wait">
         {showModal && (
