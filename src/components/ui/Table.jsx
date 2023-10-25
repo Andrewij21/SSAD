@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { AiFillDelete, AiOutlineMore, AiFillCheckCircle } from "react-icons/ai";
+import Modal from "./Modal";
+import { AnimatePresence } from "framer-motion";
 
 // const datas = [
 //   { name: "Apple MacBook Pro 17", user: "user1" },
@@ -10,6 +12,15 @@ import { AiFillDelete, AiOutlineMore, AiFillCheckCircle } from "react-icons/ai";
 
 const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
   const [edit, setEdit] = useState(false);
+
+  const editHandler = (payload) => {
+    console.log({ payload });
+  };
+
+  const toggleEdit = () => {
+    setEdit(!edit);
+  };
+
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -64,12 +75,12 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
                   </button>
                   <button
                     className={`font-medium text-xl text-gray-600 ${
-                      actions.edit ? "" : "hidden"
+                      actions.edit.value ? "" : "hidden"
                     }`}
-                    onClick={() => setEdit(!edit)}
+                    onClick={toggleEdit}
                   >
                     <AiOutlineMore />
-                    {edit && (
+                    {/* {edit && (
                       <div className="z-10 absolute right-20 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
                         <div className="bg-gray-100 border-gray-200 rounded-lg dark:border-gray-600 dark:bg-gray-700">
                           <ul
@@ -84,7 +95,7 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
                           </ul>
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </button>
                   {item.verified == true ? null : (
                     <button
@@ -102,6 +113,16 @@ const Table = ({ data, removeHandler, verifiedHandler, tHead, actions }) => {
           })}
         </tbody>
       </table>
+      <AnimatePresence initial={true} mode="wait">
+        {edit && (
+          <Modal
+            toggleModel={toggleEdit}
+            submitHandler={editHandler}
+            title={"add device"}
+            fields={actions.edit.props}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
