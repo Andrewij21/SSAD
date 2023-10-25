@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
-import api from "../api/axios";
+// import api from "../api/axios";
 import { AnimatePresence, motion } from "framer-motion";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 // const tHead = ["devices", "macaddress", "verified"];
 const tHead = [
@@ -15,11 +16,13 @@ const tHead = [
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+
   const toggleModel = () => {
     setShowModal(!showModal);
   };
   useEffect(() => {
-    api
+    axiosPrivate
       .get("/device")
       .then((res) => {
         // console.log(res);
@@ -28,11 +31,11 @@ const Devices = () => {
       .catch((e) => {
         console.error(e.toString());
       });
-  }, []);
+  }, [axiosPrivate]);
 
   const removeHandler = (id) => {
     console.log(id);
-    api
+    axiosPrivate
       .delete("/device/" + id)
       .then((res) => {
         console.log("data dihapus", res);
@@ -47,7 +50,7 @@ const Devices = () => {
   };
   const addHandler = (payload) => {
     // console.log("data ditambah", payload);
-    api
+    axiosPrivate
       .post("/device", payload)
       .then((res) => {
         console.log("data ditambah", res);
@@ -64,7 +67,7 @@ const Devices = () => {
 
   const verifiedHandler = (id, payload) => {
     console.log("pauload", payload);
-    api
+    axiosPrivate
       .patch("/device/" + id, { verified: payload })
       .then((res) => {
         console.log("data di verified", res);

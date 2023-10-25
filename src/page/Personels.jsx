@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 // import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 // import { BsPlus } from "react-icons/bs";
-import api from "../api/axios";
+// import api from "../api/axios";
 // import { AnimatePresence, motion } from "framer-motion";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 // const tHead = ["username", "devices", "area", "role"];
 const tHead = [
@@ -15,11 +16,13 @@ const tHead = [
 const Personeles = () => {
   // const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+
   // const toggleModel = () => {
   //   setShowModal(!showModal);
   // };
   useEffect(() => {
-    api
+    axiosPrivate
       .get("/user")
       .then((res) => {
         console.log(res);
@@ -28,10 +31,10 @@ const Personeles = () => {
       .catch((e) => {
         console.error(e.toString());
       });
-  }, []);
+  }, [axiosPrivate]);
   const removeHandler = (id) => {
     console.log(id);
-    api
+    axiosPrivate
       .delete("/user/" + id)
       .then((res) => {
         console.log("data dihapus", res);
