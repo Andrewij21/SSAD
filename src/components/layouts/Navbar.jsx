@@ -2,11 +2,21 @@ import { BiMenu, BiSolidUser, BiBell } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import useLogout from "../../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ action }) => {
   const { auth } = useAuth();
-  console.log({ auth });
+  const logout = useLogout();
+  const navigate = useNavigate();
+
   const [menu, setMenu] = useState(false);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login");
+  };
+
   return (
     <nav className="bg-white shadow-md text-slate-800 dark:bg-slate-800 dark:text-slate-200 h-[8vh] flex items-center justify-between px-4">
       <button className="text-2xl" onClick={action}>
@@ -65,7 +75,10 @@ const Navbar = ({ action }) => {
                 </li> */}
               </ul>
               <div className="py-2 px-4 text-center">
-                <button className="block px-4 py-2 text-sm rounded-lg w-full bg-rose-600 text-white hover:bg-rose-700 dark:hover:bg-rose-700 dark:text-white dark:bg-rose-600">
+                <button
+                  className="block px-4 py-2 text-sm rounded-lg w-full bg-rose-600 text-white hover:bg-rose-700 dark:hover:bg-rose-700 dark:text-white dark:bg-rose-600"
+                  onClick={handleLogout}
+                >
                   Sign out
                 </button>
               </div>
