@@ -28,13 +28,13 @@ const dropIn = {
   },
 };
 
-const Modal = ({ toggleModel, title, submitHandler }) => {
+const Modal = ({ toggleModel, title, submitHandler, fields }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { name: "", user: "" },
+    // defaultValues: { name: "", user: "" },
   });
   return (
     <Backdrop onClick={toggleModel}>
@@ -62,7 +62,40 @@ const Modal = ({ toggleModel, title, submitHandler }) => {
                 className="space-y-4 md:space-y-6 text-left"
                 onSubmit={handleSubmit(submitHandler)}
               >
-                <div>
+                {fields.map((field, i) => {
+                  return (
+                    <div key={i}>
+                      <label
+                        htmlFor={field.name}
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        {field.label}
+                      </label>
+                      <input
+                        type="text"
+                        name={field.name}
+                        id={field.name}
+                        {...register(`${field.name}`, {
+                          required: {
+                            value: field.required,
+                            message: field.label + " is required",
+                          },
+                          pattern: {
+                            value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                            message:
+                              "Entered value cant start/end with white spacing",
+                          },
+                        })}
+                        className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="shacker-01"
+                      />
+                      <p className="text-pink-600 lowercase text-sm">
+                        {errors[field.name]?.message}
+                      </p>
+                    </div>
+                  );
+                })}
+                {/* <div>
                   <label
                     htmlFor="device"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -112,7 +145,7 @@ const Modal = ({ toggleModel, title, submitHandler }) => {
                   <p className="text-pink-600 lowercase text-sm">
                     {errors.user?.message}
                   </p>
-                </div>
+                </div> */}
                 <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     type="submit"
@@ -144,6 +177,7 @@ Modal.propTypes = {
   toggleModel: propTypes.func,
   submitHandler: propTypes.func,
   title: propTypes.string,
+  fields: propTypes.array,
 };
 
 export default Modal;
