@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 // import api from "../api/axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import Spinners from "../components/ui/Spinners";
 
 const Home = () => {
   const [personelCount, setPersonelCount] = useState(0);
@@ -12,12 +13,12 @@ const Home = () => {
   const cards = [
     {
       name: "personel",
-      amount: personelCount,
+      amount: personelCount || <Spinners />,
       icon: <BiGroup className="mx-auto fill-sky-400" />,
     },
     {
       name: "device",
-      amount: deviceCount,
+      amount: deviceCount || <Spinners />,
       icon: <BiSolidMicrochip className="mx-auto fill-yellow-400" />,
     },
   ];
@@ -66,7 +67,9 @@ const Home = () => {
             >
               {card.icon}
               <div>
-                <h4 className="text-2xl">{card.amount}</h4>
+                <h4 className="text-2xl">
+                  <span className="inline-block">{card.amount}</span>
+                </h4>
                 <h2 className="text-xl text-slate-500">{card.name}</h2>
               </div>
             </motion.div>
