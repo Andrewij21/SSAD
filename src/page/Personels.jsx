@@ -3,6 +3,7 @@ import Table from "../components/ui/Table";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 // import { AiFillFilter, AiFillCaretDown } from "react-icons/ai";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useForm } from "react-hook-form";
 
 // const tHead = ["username", "devices", "area", "role"];
 const tHead = [
@@ -32,6 +33,15 @@ const Personeles = () => {
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   // const [menu, setMenu] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const search = watch("search");
+
   const editHandler = (payload, id) => {
     console.log({ payload, id });
     axiosPrivate
@@ -47,18 +57,6 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
-
-  useEffect(() => {
-    axiosPrivate
-      .get("/user")
-      .then((res) => {
-        console.log(res);
-        setDevice(res.data.data);
-      })
-      .catch((e) => {
-        console.error(e.toString());
-      });
-  }, [axiosPrivate]);
   const removeHandler = (id) => {
     console.log(id);
     axiosPrivate
@@ -74,7 +72,24 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
+  useEffect(() => {
+    axiosPrivate
+      .get("/user")
+      .then((res) => {
+        console.log(res);
+        setDevice(res.data.data);
+      })
+      .catch((e) => {
+        console.error(e.toString());
+      });
+  }, [axiosPrivate]);
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
 
+  const searchHandler = (e) => {
+    console.log({ e });
+  };
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Personels</h1>
@@ -82,7 +97,10 @@ const Personeles = () => {
       <div className="dark:bg-gray-800 relative sm:rounded-lg">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 py-4">
           <div className="w-full md:w-1/2">
-            <form className="flex items-center">
+            <form
+              className="flex items-center"
+              onSubmit={handleSubmit(searchHandler)}
+            >
               <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <HiMiniMagnifyingGlass />
@@ -90,9 +108,19 @@ const Personeles = () => {
                 <input
                   type="text"
                   id="simple-search"
+                  {...register(`search`, {
+                    pattern: {
+                      value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                      message:
+                        "Entered value cant start/end with white spacing",
+                    },
+                  })}
                   className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
                   placeholder="Search by area"
                 />
+                <p className="text-pink-600 lowercase text-sm">
+                  {errors.search?.message}
+                </p>
               </div>
             </form>
           </div>
