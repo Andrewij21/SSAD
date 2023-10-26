@@ -104,6 +104,7 @@ const Personeles = () => {
                 <input
                   type="text"
                   id="simple-search"
+                  autoComplete="off"
                   {...register(`search`, {
                     pattern: {
                       value: /^[^\s]+(?:$|.*[^\s]+$)/,
