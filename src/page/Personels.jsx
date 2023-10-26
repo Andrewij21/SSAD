@@ -38,7 +38,7 @@ const Personeles = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: { search: "" } });
 
   const search = watch("search");
 
@@ -72,20 +72,29 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
+  // useEffect(() => {
+  //   axiosPrivate
+  //     .get("/user")
+  //     .then((res) => {
+  //       console.log(res);
+  //       setDevice(res.data.data);
+  //     })
+  //     .catch((e) => {
+  //       console.error(e.toString());
+  //     });
+  // }, [axiosPrivate]);
   useEffect(() => {
+    console.log(search);
     axiosPrivate
-      .get("/user")
+      .get(`/search?q=${search}`)
       .then((res) => {
         console.log(res);
         setDevice(res.data.data);
       })
       .catch((e) => {
-        console.error(e.toString());
+        console.error(e);
       });
-  }, [axiosPrivate]);
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
+  }, [search, axiosPrivate]);
 
   const searchHandler = (e) => {
     console.log({ e });
