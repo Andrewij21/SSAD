@@ -4,6 +4,7 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 // import { AiFillFilter, AiFillCaretDown } from "react-icons/ai";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useForm } from "react-hook-form";
+import Spinners from "../components/ui/Spinners";
 
 // const tHead = ["username", "devices", "area", "role"];
 const tHead = [
@@ -32,10 +33,10 @@ const actions = {
 const Personeles = () => {
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
-  // const [menu, setMenu] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     watch,
     formState: { errors },
   } = useForm({ defaultValues: { search: "" } });
@@ -72,23 +73,15 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
-  // useEffect(() => {
-  //   axiosPrivate
-  //     .get("/user")
-  //     .then((res) => {
-  //       console.log(res);
-  //       setDevice(res.data.data);
-  //     })
-  //     .catch((e) => {
-  //       console.error(e.toString());
-  //     });
-  // }, [axiosPrivate]);
+
   useEffect(() => {
     console.log(search);
+    setIsLoading(true);
     axiosPrivate
       .get(`/search?q=${search}`)
       .then((res) => {
         console.log(res);
+        setIsLoading(false);
         setDevice(res.data.data);
       })
       .catch((e) => {
@@ -96,20 +89,14 @@ const Personeles = () => {
       });
   }, [search, axiosPrivate]);
 
-  const searchHandler = (e) => {
-    console.log({ e });
-  };
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Personels</h1>
       <div className="flex w-full justify-end items-center my-4"></div>
       <div className="dark:bg-gray-800 relative sm:rounded-lg">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 py-4">
+        <div className="flex flex-col md:flex-row items-center justify-start space-y-3 md:space-y-0 md:space-x-4 py-4">
           <div className="w-full md:w-1/2">
-            <form
-              className="flex items-center"
-              onSubmit={handleSubmit(searchHandler)}
-            >
+            <form className="flex items-center">
               <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <HiMiniMagnifyingGlass />
@@ -133,6 +120,7 @@ const Personeles = () => {
               </div>
             </form>
           </div>
+          {isLoading && <Spinners />}
           {/* <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
             <div className="flex items-center space-x-3 w-full md:w-auto">
               <button
