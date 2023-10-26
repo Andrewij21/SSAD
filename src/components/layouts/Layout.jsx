@@ -16,7 +16,7 @@ const Layout = () => {
   };
 
   return (
-    <div className="w-full flex">
+    <div className="w-full flex min-h-screen">
       <motion.div
         animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variants}
@@ -24,9 +24,9 @@ const Layout = () => {
       >
         <Sidebar menu={openMenu} />
       </motion.div>
-      <div className="w-screen min-h-screen">
+      <div className="w-screen">
         <Navbar action={menuHandler} />
-        <main className="px-6  h-[92vh] bg-slate-200">
+        <main className="px-6 py-4 bg-slate-200">
           <Outlet />
         </main>
       </div>
