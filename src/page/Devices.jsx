@@ -5,6 +5,7 @@ import { BsPlus } from "react-icons/bs";
 // import api from "../api/axios";
 import { AnimatePresence, motion } from "framer-motion";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import Spinners from "../components/ui/Spinners";
 
 // const tHead = ["devices", "macaddress", "verified"];
 const tHead = [
@@ -25,15 +26,18 @@ const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleModel = () => {
     setShowModal(!showModal);
   };
   useEffect(() => {
+    setIsLoading(true);
     axiosPrivate
       .get("/device")
       .then((res) => {
         // console.log(res);
+        setIsLoading(false);
         setDevice(res.data.data);
       })
       .catch((e) => {
@@ -114,6 +118,13 @@ const Devices = () => {
         verifiedHandler={verifiedHandler}
         actions={actions}
       />
+      {isLoading && (
+        <div className="text-center mt-2">
+          <span className="inline-block">
+            <Spinners />
+          </span>
+        </div>
+      )}
       <AnimatePresence initial={true} mode="wait">
         {showModal && (
           <Modal
