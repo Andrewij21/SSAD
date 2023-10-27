@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // import api from "../api/axios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Spinners from "../components/ui/Spinners";
+import Map from "../components/ui/Maps";
 
 const Home = () => {
   const [personelCount, setPersonelCount] = useState(0);
@@ -75,6 +76,9 @@ const Home = () => {
             </motion.div>
           );
         })}
+      </div>
+      <div className="mt-4">
+        <Map />
       </div>
     </div>
   );
