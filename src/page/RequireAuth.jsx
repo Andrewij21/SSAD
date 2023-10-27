@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import useRefreshToken from "../hooks/useRefreshToken";
+import Spinners from "../components/ui/Spinners";
 
 const RequireAuth = () => {
   const { auth } = useAuth();
@@ -29,7 +30,15 @@ const RequireAuth = () => {
   // return <>{auth.username ? <Outlet /> : <Navigate to="/login" replace />}</>;
   return (
     <>
-      {auth.username ? <Outlet /> : isLoading ? <p>loading...</p> : <Outlet />}
+      {auth.username ? (
+        <Outlet />
+      ) : isLoading ? (
+        <div className="min-h-screen flex justify-center items-center">
+          <Spinners />
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </>
   );
 };
