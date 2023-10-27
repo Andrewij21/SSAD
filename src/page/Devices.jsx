@@ -10,8 +10,9 @@ import Spinners from "../components/ui/Spinners";
 // const tHead = ["devices", "macaddress", "verified"];
 const tHead = [
   { head: "devices", prop: "name" },
-  { head: "macaddress", prop: "user" },
-  { head: "status", prop: "status" },
+  { head: "macaddress", prop: "user", value: "macaddress" },
+  { head: "username", prop: "user", value: "username" },
+  { head: "status", prop: "status", value: "message" },
   { head: "verified", prop: "verified" },
 ];
 
@@ -36,7 +37,7 @@ const Devices = () => {
     axiosPrivate
       .get("/device")
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         setIsLoading(false);
         setDevice(res.data.data);
       })
