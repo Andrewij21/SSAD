@@ -69,7 +69,7 @@ const Table = ({
                               </li>
                             );
                           })
-                        : item[head.prop] + ""}
+                        : item[head.prop].message || item[head.prop] + ""}
                     </td>
                   );
                 })}
