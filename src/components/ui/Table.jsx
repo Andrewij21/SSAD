@@ -61,15 +61,24 @@ const Table = ({
                       key={i}
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {Array.isArray(item[head.prop])
-                        ? item[head.prop].map((item, i) => {
-                            return (
-                              <li key={i} className="list-disc">
-                                {item}
-                              </li>
-                            );
-                          })
-                        : item[head.prop].message || item[head.prop] + ""}
+                      {
+                        Array.isArray(item[head.prop])
+                          ? item[head.prop].map((item, i) => {
+                              return (
+                                <li key={i} className="list-disc">
+                                  {item}
+                                </li>
+                              );
+                            })
+                          : typeof item[head.prop] == "object" &&
+                            item[head.prop] !== null
+                          ? item[head.prop][head.value]
+                          : item[head.prop] == null
+                          ? "-"
+                          : item[head.prop] + ""
+                        // ? item[head.prop]
+                        // : ""}
+                      }
                     </td>
                   );
                 })}
