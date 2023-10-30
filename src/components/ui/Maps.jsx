@@ -1,35 +1,26 @@
-import GoogleMapReact from "google-map-react";
-import PropTypes from "prop-types";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-AnyReactComponent.propTypes = {
-  text: PropTypes.string,
-};
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default function Map() {
-  const defaultProps = {
-    center: {
-      lat: -5.378985302379575,
-      lng: 105.2519412033423,
-    },
-    zoom: 11,
-  };
-
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: "100vh", width: "100%" }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+    <div className="">
+      <MapContainer
+        center={[51.505, -0.09]}
+        zoom={13}
+        scrollWheelZoom={false}
+        className="h-screen"
       >
-        <AnyReactComponent
-          lat={-5.378985302379575}
-          lng={105.2519412033423}
-          text="My Marker"
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-      </GoogleMapReact>
+        <Marker position={[51.505, -0.09]}>
+          <Popup>
+            A pretty CSS3 popup. <br /> Easily customizable.
+          </Popup>
+        </Marker>
+      </MapContainer>
     </div>
   );
 }
