@@ -9,6 +9,7 @@ import Map from "../components/ui/Maps";
 const Home = () => {
   const [personelCount, setPersonelCount] = useState(0);
   const [deviceCount, setDeviceCount] = useState(0);
+  const [deviceLocation, setDeviceLocation] = useState([]);
   const axiosPrivate = useAxiosPrivate();
 
   const cards = [
@@ -39,6 +40,16 @@ const Home = () => {
       .then((res) => {
         const length = res.data.data.length;
         setPersonelCount(length);
+      })
+      .catch((e) => {
+        const error = e.response;
+        console.error({ status: error.status, msg: error.data.error });
+      });
+    axiosPrivate
+      .get(`/location/device`)
+      .then((res) => {
+        const mark = res.data.data;
+        setDeviceLocation(mark);
       })
       .catch((e) => {
         const error = e.response;
@@ -78,7 +89,7 @@ const Home = () => {
         })}
       </div>
       <div className="mt-4">
-        <Map />
+        <Map marker={deviceLocation} />
       </div>
     </div>
   );
