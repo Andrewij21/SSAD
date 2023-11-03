@@ -10,7 +10,8 @@ import Spinners from "../components/ui/Spinners";
 // const tHead = ["devices", "macaddress", "verified"];
 const tHead = [
   { head: "devices", prop: "name" },
-  { head: "macaddress", prop: "user", value: "macaddress" },
+  // { head: "macaddress", prop: "user", value: "macaddress" },
+  { head: "macaddress", prop: "macaddress" },
   { head: "username", prop: "user", value: "username" },
   { head: "status", prop: "status", value: "message" },
   { head: "verified", prop: "verified" },
