@@ -13,6 +13,7 @@ const tHead = [
   // { head: "macaddress", prop: "user", value: "macaddress" },
   { head: "macaddress", prop: "macaddress" },
   { head: "username", prop: "user", value: "username" },
+  { head: "location", prop: "area", value: "location" },
   { head: "status", prop: "status", value: "message" },
   { head: "verified", prop: "verified" },
 ];
