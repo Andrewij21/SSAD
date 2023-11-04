@@ -78,8 +78,9 @@ const Personeles = () => {
 
   return (
     <div>
-      <h1 className="text-2xl text-sky-600 font-bold capitalize">Personels</h1>
-      <div className="dark:bg-gray-800 relative sm:rounded-lg"></div>
+      <h1 className="text-2xl text-sky-600 font-bold capitalize pb-4">
+        Personels
+      </h1>
       <Table
         data={personels}
         tHead={tHead}
@@ -88,7 +89,9 @@ const Personeles = () => {
         editHandler={editHandler}
         title={"Edit password"}
       />
-      {isLoading && <Spinners />}
+      <div className="flex justify-center mt-2">
+        {isLoading && <Spinners />}
+      </div>
     </div>
   );
 };
