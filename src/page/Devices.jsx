@@ -72,16 +72,19 @@ const Devices = () => {
 
   const removeHandler = (id) => {
     console.log(id);
+    setIsLoading(true);
     axiosPrivate
       .delete("/device/" + id)
       .then((res) => {
         console.log("data dihapus", res);
         // const data = res.data.data
+        setIsLoading(false);
         setDevice((prev) => {
           return prev.filter((data) => data._id !== id);
         });
       })
       .catch((e) => {
+        setIsLoading(false);
         console.error(e.toString());
       });
   };
