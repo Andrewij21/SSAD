@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import Backdrop from "./Backdrop";
 import { useForm } from "react-hook-form";
+import Spinners from "./Spinners";
 
 const dropIn = {
   hidden: {
@@ -28,7 +29,7 @@ const dropIn = {
   },
 };
 
-const Modal = ({ toggleModel, title, submitHandler, fields }) => {
+const Modal = ({ toggleModel, title, submitHandler, fields, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -147,6 +148,8 @@ const Modal = ({ toggleModel, title, submitHandler, fields }) => {
                   </p>
                 </div> */}
                 <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                  {isLoading && <Spinners />}
+
                   <button
                     type="submit"
                     className="w-28 text-white bg-emerald-400 hover:bg-emerald-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 uppercase dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -178,6 +181,7 @@ Modal.propTypes = {
   submitHandler: propTypes.func,
   title: propTypes.string,
   fields: propTypes.array,
+  isLoading: propTypes.bool,
 };
 
 export default Modal;
