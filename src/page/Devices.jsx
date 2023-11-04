@@ -22,7 +22,7 @@ const actions = { delete: true, edit: false, verified: true };
 
 const fields = [
   { type: "text", name: "name", label: "device", required: true },
-  { type: "text", name: "user", label: "macaddress", required: false },
+  { type: "text", name: "macaddress", label: "macaddress", required: false },
 ];
 
 const Devices = () => {
@@ -79,7 +79,10 @@ const Devices = () => {
         const data = res.data.data;
         console.log(data);
         setDevice((prev) => {
-          return [...prev, { ...data, verified: false, status: false }];
+          return [
+            ...prev,
+            { ...data, verified: false, status: { message: "offline" } },
+          ];
         });
         setShowModal(!showModal);
       })
