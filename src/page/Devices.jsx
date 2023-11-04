@@ -111,11 +111,12 @@ const Devices = () => {
   };
 
   const verifiedHandler = (id, payload) => {
-    console.log("pauload", payload);
+    setIsLoading(true);
     axiosPrivate
       .patch("/device/" + id, { verified: payload })
       .then((res) => {
         console.log("data di verified", res);
+        setIsLoading(false);
         setDevice((prev) => {
           return prev.map((prev) => {
             if (prev._id === id) {
@@ -126,6 +127,7 @@ const Devices = () => {
         });
       })
       .catch((e) => {
+        isLoading(false);
         console.error(e.toString());
       });
   };
