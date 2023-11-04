@@ -29,7 +29,14 @@ const dropIn = {
   },
 };
 
-const Modal = ({ toggleModel, title, submitHandler, fields, isLoading }) => {
+const Modal = ({
+  toggleModel,
+  title,
+  submitHandler,
+  fields,
+  isLoading,
+  error,
+}) => {
   const {
     register,
     handleSubmit,
@@ -148,7 +155,13 @@ const Modal = ({ toggleModel, title, submitHandler, fields, isLoading }) => {
                   </p>
                 </div> */}
                 <div className="flex items-center justify-center md:justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  {isLoading && <Spinners />}
+                  {isLoading ? (
+                    <Spinners />
+                  ) : error ? (
+                    <p className="text-pink-600 lowercase text-sm mr-4">
+                      {error}
+                    </p>
+                  ) : null}
 
                   <button
                     type="submit"
@@ -180,6 +193,7 @@ Modal.propTypes = {
   toggleModel: propTypes.func,
   submitHandler: propTypes.func,
   title: propTypes.string,
+  error: propTypes.string,
   fields: propTypes.array,
   isLoading: propTypes.bool,
 };
