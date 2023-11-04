@@ -87,7 +87,7 @@ const Modal = ({ toggleModel, title, submitHandler, fields }) => {
                           },
                         })}
                         className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="shacker-01"
+                        placeholder={field.placeholder || ""}
                       />
                       <p className="text-pink-600 lowercase text-sm">
                         {errors[field.name]?.message}
