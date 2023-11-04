@@ -125,7 +125,7 @@ const Devices = () => {
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
-      <div className="flex w-full justify-between items-center my-4">
+      <div className="md:flex w-full justify-between items-center my-4 space-y-4">
         <div className="w-full md:w-1/2">
           <form className="flex items-center">
             <div className="relative w-full">
