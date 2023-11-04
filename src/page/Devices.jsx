@@ -21,8 +21,20 @@ const tHead = [
 const actions = { delete: true, edit: false, verified: true };
 
 const fields = [
-  { type: "text", name: "name", label: "device", required: true },
-  { type: "text", name: "macaddress", label: "macaddress", required: false },
+  {
+    type: "text",
+    name: "name",
+    label: "device",
+    required: true,
+    placeholder: "device name...",
+  },
+  {
+    type: "text",
+    name: "macaddress",
+    label: "macaddress",
+    required: true,
+    placeholder: "device macaddress...",
+  },
 ];
 
 const Devices = () => {
