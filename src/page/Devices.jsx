@@ -42,6 +42,9 @@ const Devices = () => {
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
+  const [error, setError] = useState(null);
+
   const {
     register,
     // handleSubmit,
@@ -84,12 +87,14 @@ const Devices = () => {
   };
   const addHandler = (payload) => {
     // console.log("data ditambah", payload);
+    setIsLoadingForm(true);
     axiosPrivate
       .post("/device", payload)
       .then((res) => {
         console.log("data ditambah", res);
         const data = res.data.data;
         console.log(data);
+        setIsLoadingForm(false);
         setDevice((prev) => {
           return [
             ...prev,
@@ -99,7 +104,9 @@ const Devices = () => {
         setShowModal(!showModal);
       })
       .catch((e) => {
-        console.error(e.toString());
+        setIsLoadingForm(false);
+        setError(e.response.data.message);
+        console.error(e);
       });
   };
 
@@ -179,6 +186,8 @@ const Devices = () => {
             submitHandler={addHandler}
             title={"add device"}
             fields={fields}
+            isLoading={isLoadingForm}
+            error={error}
           />
         )}
       </AnimatePresence>
