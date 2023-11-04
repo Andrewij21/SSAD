@@ -18,6 +18,7 @@ export default function Map({ marker }) {
         />
         {marker &&
           marker.map((mark) => {
+            if (mark.area.latLong.length === 0) return;
             return (
               <Marker key={mark._id} position={mark.area.latLong}>
                 <Popup>{mark.name}</Popup>
