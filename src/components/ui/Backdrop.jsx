@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Backdrop = ({ children, onClick }) => {
   return (
     <motion.div
-      className="absolute top-0 left-0 h-full w-screen bg-black bg-opacity-50 flex items-center justify-center"
+      className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center"
       onClick={onClick}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
