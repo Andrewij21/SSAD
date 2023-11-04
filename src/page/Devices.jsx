@@ -93,7 +93,7 @@ const Devices = () => {
       .then((res) => {
         console.log("data ditambah", res);
         const data = res.data.data;
-        console.log(data);
+        setError(null);
         setIsLoadingForm(false);
         setDevice((prev) => {
           return [
@@ -106,7 +106,7 @@ const Devices = () => {
       .catch((e) => {
         setIsLoadingForm(false);
         setError(e.response.data.message);
-        console.error(e);
+        console.error(e.toString());
       });
   };
 
