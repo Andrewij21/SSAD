@@ -26,7 +26,7 @@ const Layout = () => {
       </motion.div>
       <div className="w-screen">
         <Navbar action={menuHandler} />
-        <main className="px-6 py-4 min-h-screen bg-slate-200">
+        <main className="px-6 py-4 min-h-[calc(100vh-64px)] bg-slate-200">
           <Outlet />
         </main>
       </div>
