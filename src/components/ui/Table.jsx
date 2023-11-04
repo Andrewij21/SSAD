@@ -66,7 +66,7 @@ const Table = ({
                           ? item[head.prop].map((item, i) => {
                               return (
                                 <li key={i} className="list-disc">
-                                  {item}
+                                  {item[head.value] || item}
                                 </li>
                               );
                             })
