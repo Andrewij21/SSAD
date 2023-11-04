@@ -31,9 +31,11 @@ const Personeles = () => {
   const [personels, setPersonels] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
 
   const editHandler = (payload, id) => {
     console.log({ payload, id });
+    setIsLoadingForm(true);
     axiosPrivate
       .patch("/user/reset-password/" + id, payload, {
         headers: { "Content-Type": "application/json" },
@@ -41,9 +43,11 @@ const Personeles = () => {
       })
       .then((res) => {
         console.log("data diedit", res);
+        setIsLoadingForm(false);
         // const data = res.data.data
       })
       .catch((e) => {
+        setIsLoadingForm(false);
         console.error(e.toString());
       });
   };
@@ -89,6 +93,7 @@ const Personeles = () => {
         removeHandler={removeHandler}
         editHandler={editHandler}
         title={"Edit password"}
+        isLoading={isLoadingForm}
       />
       <div className="flex justify-center mt-2">
         {isLoading && <Spinners />}

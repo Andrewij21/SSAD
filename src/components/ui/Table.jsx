@@ -18,6 +18,7 @@ const Table = ({
   tHead,
   actions,
   title,
+  isLoading,
 }) => {
   const [edit, setEdit] = useState(false);
   const [id, setId] = useState(null);
@@ -138,6 +139,7 @@ const Table = ({
             submitHandler={editAction}
             title={title}
             fields={actions.edit.props}
+            isLoading={isLoading}
           />
         )}
       </AnimatePresence>
@@ -153,6 +155,7 @@ Table.propTypes = {
   editHandler: PropTypes.func,
   verifiedHandler: PropTypes.func,
   title: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 export default Table;
