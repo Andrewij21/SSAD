@@ -17,6 +17,7 @@ const fields = [
     label: "Reset password",
     required: true,
     focus: true,
+    placeholder: "insert new password",
   },
 ];
 
