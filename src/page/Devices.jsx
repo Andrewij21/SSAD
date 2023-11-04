@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import Modal from "../components/ui/Modal";
 import Table from "../components/ui/Table";
 import { BsPlus } from "react-icons/bs";
-// import api from "../api/axios";
 import { AnimatePresence, motion } from "framer-motion";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Spinners from "../components/ui/Spinners";
+import { HiMiniMagnifyingGlass } from "react-icons/hi2";
+import { useForm } from "react-hook-form";
 
-// const tHead = ["devices", "macaddress", "verified"];
 const tHead = [
   { head: "devices", prop: "name" },
   // { head: "macaddress", prop: "user", value: "macaddress" },
@@ -30,23 +30,30 @@ const Devices = () => {
   const [device, setDevice] = useState([]);
   const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    // handleSubmit,
+    watch,
+    // formState: { errors },
+  } = useForm({ defaultValues: { search: "" } });
 
+  const search = watch("search");
   const toggleModel = () => {
     setShowModal(!showModal);
   };
   useEffect(() => {
     setIsLoading(true);
     axiosPrivate
-      .get("/device")
+      .get(`/device?q=${search}`)
       .then((res) => {
-        console.log(res);
+        // console.log("device", res);
         setIsLoading(false);
         setDevice(res.data.data);
       })
       .catch((e) => {
         console.error(e.toString());
       });
-  }, [axiosPrivate]);
+  }, [search, axiosPrivate]);
 
   const removeHandler = (id) => {
     console.log(id);
@@ -103,7 +110,29 @@ const Devices = () => {
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
-      <div className="flex w-full justify-end items-center my-4">
+      <div className="flex w-full justify-between items-center my-4">
+        <div className="w-full md:w-1/2">
+          <form className="flex items-center">
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <HiMiniMagnifyingGlass />
+              </div>
+              <input
+                type="text"
+                id="simple-search"
+                autoComplete="off"
+                {...register(`search`, {
+                  pattern: {
+                    value: /^[^\s]+(?:$|.*[^\s]+$)/,
+                    message: "Entered value cant start/end with white spacing",
+                  },
+                })}
+                className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
+                placeholder="Search by area"
+              />
+            </div>
+          </form>
+        </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
