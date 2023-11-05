@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const variants = {
   expanded: { width: "20%" },
-  nonexpanded: { width: "10%" },
+  nonexpanded: { width: "10%", minWidth: "120px" },
 };
 const variantsMobile = {
   expanded: { width: "20%" },
