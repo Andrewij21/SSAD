@@ -8,6 +8,10 @@ const variants = {
   expanded: { width: "20%" },
   nonexpanded: { width: "10%" },
 };
+const variantsMobile = {
+  expanded: { width: "20%" },
+  nonexpanded: { width: "0%" },
+};
 
 const Layout = () => {
   const [openMenu, setOpenmenu] = useState(false);
@@ -20,11 +24,21 @@ const Layout = () => {
       <motion.div
         animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variants}
-        className={`${openMenu ? "w-[20%]" : "w-[10%]"} hidden md:block`}
+        className={`hidden md:block`}
       >
         <Sidebar menu={openMenu} />
       </motion.div>
-      <div className="w-screen">
+      <motion.div
+        // animate={openMenu ? "expanded" : "nonexpanded"}
+        variants={variantsMobile}
+        className={`${
+          openMenu ? "left-0" : " -right-full"
+        } fixed top-0 h-screen z-50 md:hidden w-36`}
+      >
+        <Sidebar menu={openMenu} />
+      </motion.div>
+
+      <div className="w-screen" onClick={() => setOpenmenu(!openMenu)}>
         <Navbar action={menuHandler} />
         <main className="px-6 py-4 min-h-[calc(100vh-64px)] bg-slate-200">
           <Outlet />
