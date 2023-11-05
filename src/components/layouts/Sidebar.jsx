@@ -36,7 +36,7 @@ const Sidebar = ({ menu }) => {
             }
           >
             <motion.button
-              className={`flex flex-row space-x-2 items-center text-xl font-semibold w-full
+              className={`flex flex-row space-x-2 items-center text-xl font-semibold w-full outline-none
               ${menu ? "justify-start" : "justify-center"} 
               `}
               // whileHover={{ scale: 1.1 }}
