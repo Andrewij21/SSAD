@@ -1,4 +1,4 @@
-import { BiMenu, BiSolidUser, BiBell } from "react-icons/bi";
+import { BiMenu, BiSolidUser } from "react-icons/bi";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -23,11 +23,11 @@ const Navbar = ({ action }) => {
         <BiMenu />
       </button>
       <ul className="flex text-xl">
-        <li className="">
+        {/* <li className="">
           <div className="cursor-pointer hover:bg-gray-400 hover:bg-opacity-25 rounded-full p-2">
             <BiBell />
           </div>
-        </li>
+        </li> */}
         <li className="">
           <div className="p-2 text-sm text-gray-900 dark:text-white">
             <div className="font-medium truncate">{auth.username}</div>
