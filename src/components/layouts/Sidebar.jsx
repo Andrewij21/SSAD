@@ -42,7 +42,7 @@ const Sidebar = ({ menu }) => {
               // whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              {page.icon}
+              <span className="text-sm md:text-lg">{page.icon}</span>
               <span className={`text-sm py-1 ${menu ? "block" : "hidden"}`}>
                 {page.title}
               </span>
