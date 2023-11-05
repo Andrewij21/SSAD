@@ -1,4 +1,9 @@
-import { BiSolidDashboard, BiSolidMicrochip, BiGroup } from "react-icons/bi";
+import {
+  BiSolidDashboard,
+  BiSolidMicrochip,
+  BiGroup,
+  BiX,
+} from "react-icons/bi";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -8,19 +13,27 @@ const menus = [
   { title: "personel", icon: <BiGroup />, path: "/personel" },
 ];
 
-const Sidebar = ({ menu }) => {
+const Sidebar = ({ menu, isMobile, toggleMenu }) => {
   return (
-    <div className="h-full p-6 flex flex-col gap-4 bg-sky-600 text-slate-200 shadow-sm">
+    <div className="h-full p-6 flex flex-col gap-4 bg-sky-600 text-slate-200 shadow-sm relative">
       <div
         className={`space-y-2 border-b-4 border-white ${
           menu ? "text-left" : "text-center"
         }`}
       >
+        {isMobile && (
+          <div
+            className="text-3xl absolute right-2 top-2 cursor-pointer"
+            onClick={toggleMenu}
+          >
+            <BiX />
+          </div>
+        )}
         <span className="uppercase text-xl lg:text-2xl font-extrabold text-white ">
           SSAD
         </span>
-        <h1 className={`tracking-wide pb-4 ${menu ? "text-sm" : "text-xs"}`}>
-          Admin Panel
+        <h1 className={`tracking-wide pb-4 ${menu ? "text-xs" : "text-xs"}`}>
+          Admin<span className="ml-1">Panel</span>
         </h1>
       </div>
 
@@ -87,5 +100,7 @@ const Sidebar = ({ menu }) => {
 
 Sidebar.propTypes = {
   menu: PropTypes.bool,
+  isMobile: PropTypes.bool,
+  toggleMenu: PropTypes.func,
 };
 export default Sidebar;
