@@ -10,7 +10,7 @@ export default function Map({ marker }) {
         center={[-5.37775571957218, 105.2521859368718]}
         zoom={13}
         scrollWheelZoom={false}
-        className="h-screen"
+        className="h-screen z-0"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
