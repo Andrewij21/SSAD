@@ -5,7 +5,7 @@ import Spinners from "../components/ui/Spinners";
 
 const tHead = [
   { head: "username", prop: "username" },
-  { head: "devices", prop: "devices", value: "_id" },
+  { head: "devices", prop: "devices", value: "name" },
   // { head: "area", prop: "area", value: "location" },
   { head: "role", prop: "roles" },
 ];
