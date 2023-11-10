@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 const variants = {
   expanded: { width: "20%" },
-  nonexpanded: { width: "10%", minWidth: "120px" },
+  nonexpanded: { width: "10%" },
 };
 const variantsMobile = {
   expanded: { width: "20%" },
@@ -24,16 +24,15 @@ const Layout = () => {
       <motion.div
         animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variants}
-        className={`hidden md:block`}
+        className={`hidden md:block min-w-[120px]`}
       >
         <Sidebar menu={openMenu} isMobile={false} />
       </motion.div>
       <motion.div
         // animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variantsMobile}
-        className={`${
-          openMenu ? "left-0" : " -right-full"
-        } fixed top-0 h-screen z-50 md:hidden w-36`}
+        className={`${openMenu ? "left-0" : " -right-full"
+          } fixed top-0 h-screen z-50 md:hidden w-36`}
       >
         <Sidebar menu={openMenu} isMobile={true} toggleMenu={menuHandler} />
       </motion.div>
