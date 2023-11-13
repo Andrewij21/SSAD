@@ -193,6 +193,7 @@ const Devices = () => {
             fields={fields}
             isLoading={isLoadingForm}
             error={error}
+            type="form"
           />
         )}
       </AnimatePresence>
