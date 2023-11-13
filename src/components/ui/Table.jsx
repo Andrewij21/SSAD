@@ -15,6 +15,7 @@ const Table = ({
   removeHandler,
   editHandler,
   verifiedHandler,
+  infoHandler,
   tHead,
   actions,
   title,
@@ -94,7 +95,7 @@ const Table = ({
                   <button
                     className={`font-medium text-xl text-yellow-400 ${actions.detail ? "" : "hidden"
                       }`}
-                  // onClick={() => removeHandler(item._id)}
+                    onClick={() => infoHandler("details", "details")}
                   >
                     <AiFillInfoCircle />
                   </button>
@@ -158,6 +159,7 @@ Table.propTypes = {
   removeHandler: PropTypes.func,
   editHandler: PropTypes.func,
   verifiedHandler: PropTypes.func,
+  infoHandler: PropTypes.func,
   title: PropTypes.string,
   isLoading: PropTypes.bool,
 };
