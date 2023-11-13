@@ -59,7 +59,7 @@ const Modal = ({
               </button>
             </div>
             {/*body*/}
-            <div className="relative p-6 flex-auto">
+            <div className="relative px-6 py-4 flex-auto">
               {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : <Details />}
             </div>
           </div>
