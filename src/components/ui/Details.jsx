@@ -8,11 +8,13 @@ const Details = () => {
                     return <div key={i}>
                         <h4 className="text-lg font-semibold">{rak}</h4>
                         <div className="flex items-center justify-start space-x-2">
-                            <p>tanaman:</p>
+                            <p className="w-24">tanaman</p>
+                            <p>:</p>
                             <span>jagung</span>
                         </div>
                         <div className="flex items-center justify-start space-x-2">
-                            <p>Media tanam:</p>
+                            <p className="w-24">Media tanam</p>
+                            <p>:</p>
                             <span>pupuk</span>
                         </div>
                     </div>
