@@ -6,7 +6,7 @@ const Details = () => {
             {
                 RAK.map((rak, i) => {
                     return <div key={i}>
-                        <h4 className="text-lg">{rak}</h4>
+                        <h4 className="text-lg font-semibold">{rak}</h4>
                         <div className="flex items-center justify-start space-x-2">
                             <p>tanaman:</p>
                             <span>jagung</span>
