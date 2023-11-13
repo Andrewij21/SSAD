@@ -3,6 +3,7 @@ import propTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 import Backdrop from "./Backdrop";
 import Form from "./Form";
+import Details from "./Details";
 
 const dropIn = {
   hidden: {
@@ -59,7 +60,7 @@ const Modal = ({
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : ""}
+              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : <Details />}
             </div>
           </div>
         </div>
