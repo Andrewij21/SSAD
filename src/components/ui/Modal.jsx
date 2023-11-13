@@ -35,6 +35,7 @@ const Modal = ({
   fields,
   isLoading,
   error,
+  type
 }) => {
   return (
     <Backdrop onClick={toggleModel}>
@@ -58,7 +59,7 @@ const Modal = ({
             </div>
             {/*body*/}
             <div className="relative p-6 flex-auto">
-              <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} />
+              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : ""}
             </div>
           </div>
         </div>
@@ -69,11 +70,12 @@ const Modal = ({
 
 Modal.propTypes = {
   toggleModel: propTypes.func,
-  submitHandler: propTypes.func,
   title: propTypes.string,
-  error: propTypes.string,
+  submitHandler: propTypes.func,
   fields: propTypes.array,
   isLoading: propTypes.bool,
+  error: propTypes.string,
+  type: propTypes.string,
 };
 
 export default Modal;
