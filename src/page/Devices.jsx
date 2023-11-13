@@ -18,7 +18,7 @@ const tHead = [
   { head: "verified", prop: "verified" },
 ];
 
-const actions = { delete: true, edit: false, verified: true };
+const actions = { delete: true, edit: false, verified: true, detail: true };
 
 const fields = [
   {
