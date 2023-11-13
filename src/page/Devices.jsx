@@ -44,7 +44,7 @@ const Devices = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
-  const [modalType, setModalType] = useState("")
+  const [modalType, setModalType] = useState({ title: "", type: "" })
 
   const {
     register,
@@ -54,8 +54,12 @@ const Devices = () => {
   } = useForm({ defaultValues: { search: "" } });
 
   const search = watch("search");
-  const toggleModel = (type) => {
-    setModalType(type)
+  const toggleModel = (type = "details", title = "info") => {
+    // setModalType(type)
+    setModalType({
+      title: title,
+      type: type,
+    });
     setShowModal(!showModal);
   };
   useEffect(() => {
@@ -165,7 +169,7 @@ const Devices = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => toggleModel("form")}
+          onClick={() => toggleModel("form", "add device")}
           className="flex gap-1 flex-row items-center bg-teal-400 px-4 py-2 rounded-lg hover:bg-teal-500 hover:ring-teal-400 hover:ring-2 text-white"
         >
           <BsPlus className="font-bold text-xl" />
@@ -177,6 +181,7 @@ const Devices = () => {
         tHead={tHead}
         removeHandler={removeHandler}
         verifiedHandler={verifiedHandler}
+        infoHandler={toggleModel}
         actions={actions}
       />
       {isLoading && (
@@ -191,11 +196,11 @@ const Devices = () => {
           <Modal
             toggleModel={toggleModel}
             submitHandler={addHandler}
-            title={"add device"}
+            title={modalType.title}
             fields={fields}
             isLoading={isLoadingForm}
             error={error}
-            type={modalType}
+            type={modalType.type}
           />
         )}
       </AnimatePresence>
