@@ -95,7 +95,7 @@ const Table = ({
                   <button
                     className={`font-medium text-xl text-yellow-400 ${actions.detail ? "" : "hidden"
                       }`}
-                    onClick={() => infoHandler("details", "details")}
+                    onClick={() => infoHandler("details", "details", item._id)}
                   >
                     <AiFillInfoCircle />
                   </button>
