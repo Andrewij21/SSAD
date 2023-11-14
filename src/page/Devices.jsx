@@ -44,7 +44,7 @@ const Devices = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
-  const [modalType, setModalType] = useState({ title: "", type: "" })
+  const [modalType, setModalType] = useState({ title: "", type: "", detail: "" })
 
   const {
     register,
@@ -54,11 +54,16 @@ const Devices = () => {
   } = useForm({ defaultValues: { search: "" } });
 
   const search = watch("search");
-  const toggleModel = (type = "details", title = "info") => {
+  const toggleModel = (type = "details", title = "info", id) => {
     // setModalType(type)
+    let detail;
+    if (type === "details") {
+      detail = device.filter((shacker) => shacker._id === id)
+    }
     setModalType({
       title: title,
       type: type,
+      detail
     });
     setShowModal(!showModal);
   };
@@ -201,6 +206,7 @@ const Devices = () => {
             isLoading={isLoadingForm}
             error={error}
             type={modalType.type}
+            data={modalType.detail}
           />
         )}
       </AnimatePresence>
