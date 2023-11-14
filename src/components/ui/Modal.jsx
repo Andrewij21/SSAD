@@ -36,7 +36,8 @@ const Modal = ({
   fields,
   isLoading,
   error,
-  type
+  type,
+  data
 }) => {
   return (
     <Backdrop onClick={toggleModel}>
@@ -60,7 +61,7 @@ const Modal = ({
             </div>
             {/*body*/}
             <div className="relative px-6 py-4 flex-auto">
-              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : <Details />}
+              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} error={error} /> : <Details data={data} />}
             </div>
           </div>
         </div>
@@ -77,6 +78,7 @@ Modal.propTypes = {
   isLoading: propTypes.bool,
   error: propTypes.string,
   type: propTypes.string,
+  data: propTypes.array,
 };
 
 export default Modal;
