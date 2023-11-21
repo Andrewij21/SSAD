@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Table from "../components/ui/Table";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Spinners from "../components/ui/Spinners";
+import { AnimatePresence } from "framer-motion";
+import Modal from "../components/ui/Modal";
 
 const tHead = [
   { head: "username", prop: "username" },
@@ -32,12 +34,15 @@ const Personeles = () => {
   const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
+  const [modalType, setModalType] = useState({ title: "", type: "", detail: "" })
 
-  const editHandler = (payload, id) => {
+  const editHandler = (payload) => {
     console.log({ payload, id });
     setIsLoadingForm(true);
     axiosPrivate
-      .patch("/user/reset-password/" + id, payload, {
+      .patch("/user/reset-password/" + payload.id, {password:payload.password}, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
@@ -84,6 +89,16 @@ const Personeles = () => {
       });
   }, [axiosPrivate]);
 
+  const toggleModel = (type  , title  , id) => {
+ 
+    setModalType({
+      title: title,
+      type: type,
+      detail:id
+    });
+    setShowModal(!showModal);
+  };
+
   return (
     <div>
       <h1 className="text-2xl text-sky-600 font-bold capitalize pb-4">
@@ -94,13 +109,28 @@ const Personeles = () => {
         tHead={tHead}
         actions={actions}
         removeHandler={removeHandler}
-        editHandler={editHandler}
-        title={"Edit password"}
+        editHandler={toggleModel}
+        // title={"Edit password"}
         isLoading={isLoadingForm}
       />
       <div className="flex justify-center mt-2">
         {isLoading && <Spinners />}
       </div>
+
+      <AnimatePresence initial={true} mode="wait">
+        {showModal && (
+          <Modal
+          toggleModel={toggleModel}
+          submitHandler={editHandler}
+          title={modalType.title}
+          fields={fields}
+          isLoading={isLoadingForm}
+          error={error}
+          type={modalType.type}
+          data={modalType.detail}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };
