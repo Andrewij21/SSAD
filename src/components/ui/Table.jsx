@@ -145,6 +145,7 @@ const Table = ({
             title={title}
             fields={actions.edit.props}
             isLoading={isLoading}
+            type={"form"}
           />
         )}
       </AnimatePresence>
