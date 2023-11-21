@@ -35,11 +35,10 @@ const Personeles = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [modalType, setModalType] = useState({ title: "", type: "", detail: "" })
 
   const editHandler = (payload) => {
-    console.log({ payload, id });
     setIsLoadingForm(true);
     axiosPrivate
       .patch("/user/reset-password/" + payload.id, {password:payload.password}, {
@@ -125,7 +124,7 @@ const Personeles = () => {
           title={modalType.title}
           fields={fields}
           isLoading={isLoadingForm}
-          error={error}
+          // error={error}
           type={modalType.type}
           data={modalType.detail}
           />
