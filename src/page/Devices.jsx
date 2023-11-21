@@ -54,7 +54,7 @@ const Devices = () => {
   } = useForm({ defaultValues: { search: "" } });
 
   const search = watch("search");
-  const toggleModel = (type = "details", title = "info", id) => {
+  const toggleModel = (type, title, id) => {
     // setModalType(type)
     let detail;
     if (type === "details") {
