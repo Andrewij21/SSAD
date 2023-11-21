@@ -2,15 +2,14 @@ import { useForm } from "react-hook-form";
 import Spinners from "./Spinners";
 import propTypes from "prop-types";
 
-const Form = ({ submitHandler, fields, isLoading, error }) => {
+const Form = ({ submitHandler, fields, isLoading, error, data }) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm({
-        // defaultValues: { name: "", user: "" },
+        defaultValues: { id: data },
     });
-
     return (
         <form
             className="space-y-4 md:space-y-6 text-left"
