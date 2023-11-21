@@ -48,10 +48,12 @@ const Personeles = () => {
       .then((res) => {
         console.log("data diedit", res);
         setIsLoadingForm(false);
+        setShowModal(false)
         // const data = res.data.data
       })
       .catch((e) => {
         setIsLoadingForm(false);
+        setShowModal(false)
         console.error(e.toString());
       });
   };
