@@ -38,7 +38,7 @@ const Table = ({
                     <td
                       scope="row"
                       key={i}
-                      className="px-6 py-4 font-medium text-gray-900 dark:text-white max-w-lg"
+                      className="px-6 py-4 font-medium text-gray-900 dark:text-white max-w-sm"
                     >
                       {
                         Array.isArray(item[head.prop])
