@@ -41,6 +41,7 @@ const Navbar = ({ action }) => {
             <BiSolidUser />
           </div>
           {menu && (
+            <div className="fixed top-0 left-0 h-full w-full" onClick={()=>setMenu(!menu)}>
             <div
               id="dropdownAvatar"
               className="z-10 absolute right-0 top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
@@ -82,6 +83,7 @@ const Navbar = ({ action }) => {
                   Sign out
                 </button>
               </div>
+            </div>
             </div>
           )}
         </li>
