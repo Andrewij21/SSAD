@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { AiFillDelete, AiOutlineMore, AiFillCheckCircle, AiFillInfoCircle } from "react-icons/ai";
 const Table = ({
   data,
@@ -8,9 +7,7 @@ const Table = ({
   verifiedHandler,
   infoHandler,
   tHead,
-  actions,
-  title,
-  isLoading,
+  actions
 }) => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
