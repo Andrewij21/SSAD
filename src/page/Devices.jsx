@@ -24,16 +24,30 @@ const fields = [
   {
     type: "text",
     name: "name",
-    label: "device",
+    label: "device*",
     required: true,
     placeholder: "device name...",
   },
   {
     type: "text",
     name: "macaddress",
-    label: "macaddress",
+    label: "macaddress*",
     required: true,
     placeholder: "device macaddress...",
+  },
+  {
+    type: "text",
+    name: "user",
+    label: "user ID",
+    required: false,
+    placeholder: "input user id...",
+  },
+  {
+    type: "text",
+    name: "location",
+    label: "location",
+    required: false,
+    placeholder: "location...",
   },
 ];
 
@@ -116,7 +130,12 @@ const Devices = () => {
         setDevice((prev) => {
           return [
             ...prev,
-            { ...data, verified: false, status: { message: "offline" } },
+            {
+              ...data,
+              verified: false,
+              status: { message: "offline" },
+              area: { location: data.location },
+            },
           ];
         });
         setShowModal(!showModal);
