@@ -66,7 +66,7 @@ const Table = ({
                     </td>
                   );
                 })}
-                <td className="px-6 py-4 flex gap-1">
+                <td className="px-6 py-4">
                   <button
                     className={`font-medium text-xl text-rose-600 ${
                       actions.delete ? "" : "hidden"
