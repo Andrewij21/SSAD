@@ -1,5 +1,10 @@
 import PropTypes from "prop-types";
-import { AiFillDelete, AiOutlineMore, AiFillCheckCircle, AiFillInfoCircle } from "react-icons/ai";
+import {
+  AiFillDelete,
+  AiOutlineMore,
+  AiFillCheckCircle,
+  AiFillInfoCircle,
+} from "react-icons/ai";
 const Table = ({
   data,
   removeHandler,
@@ -7,7 +12,7 @@ const Table = ({
   verifiedHandler,
   infoHandler,
   tHead,
-  actions
+  actions,
 }) => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -43,18 +48,18 @@ const Table = ({
                       {
                         Array.isArray(item[head.prop])
                           ? item[head.prop].map((item, i) => {
-                            return (
-                              <li key={i} className="list-disc">
-                                {item[head.value] || item}
-                              </li>
-                            );
-                          })
+                              return (
+                                <li key={i} className="list-disc">
+                                  {item[head.value] || item}
+                                </li>
+                              );
+                            })
                           : typeof item[head.prop] == "object" &&
                             item[head.prop] !== null
-                            ? item[head.prop][head.value]
-                            : item[head.prop] == null
-                              ? "-"
-                              : item[head.prop] + ""
+                          ? item[head.prop][head.value]
+                          : item[head.prop] == null
+                          ? "-"
+                          : item[head.prop] + ""
                         // ? item[head.prop]
                         // : ""}
                       }
@@ -63,23 +68,28 @@ const Table = ({
                 })}
                 <td className="px-6 py-4 flex gap-1">
                   <button
-                    className={`font-medium text-xl text-rose-600 ${actions.delete ? "" : "hidden"
-                      }`}
+                    className={`font-medium text-xl text-rose-600 ${
+                      actions.delete ? "" : "hidden"
+                    }`}
                     onClick={() => removeHandler(item._id)}
                   >
                     <AiFillDelete />
                   </button>
                   <button
-                    className={`font-medium text-xl text-yellow-400 ${actions.detail ? "" : "hidden"
-                      }`}
+                    className={`font-medium text-xl text-yellow-400 ${
+                      actions.detail ? "" : "hidden"
+                    }`}
                     onClick={() => infoHandler("details", "details", item._id)}
                   >
                     <AiFillInfoCircle />
                   </button>
                   <button
-                    className={`font-medium text-xl text-gray-600 ${actions.edit.value ? "" : "hidden"
-                      }`}
-                    onClick={() => editHandler("form","Reset password",item._id)}
+                    className={`font-medium text-xl text-gray-600 ${
+                      actions.edit.value ? "" : "hidden"
+                    }`}
+                    onClick={() =>
+                      editHandler("form", "Reset password", item._id)
+                    }
                   >
                     <AiOutlineMore />
                     {/* {edit && (
@@ -101,8 +111,9 @@ const Table = ({
                   </button>
                   {item.verified == true ? null : (
                     <button
-                      className={`font-medium text-xl text-teal-400 dark:text-slate-200 ${actions.verified ? "" : "hidden"
-                        }`}
+                      className={`font-medium text-xl text-teal-400 dark:text-slate-200 ${
+                        actions.verified ? "" : "hidden"
+                      }`}
                       onClick={() => verifiedHandler(item._id, true)}
                     >
                       <AiFillCheckCircle />
