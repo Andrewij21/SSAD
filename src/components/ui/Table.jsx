@@ -92,22 +92,6 @@ const Table = ({
                     }
                   >
                     <AiOutlineMore />
-                    {/* {edit && (
-                      <div className="z-10 absolute right-20 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-                        <div className="bg-gray-100 border-gray-200 rounded-lg dark:border-gray-600 dark:bg-gray-700">
-                          <ul
-                            className="py-2 text-xs text-gray-600 dark:text-gray-200"
-                            aria-labelledby="dropdownUserAvatarButton"
-                          >
-                            <li>
-                              <button className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
-                                Edit Password
-                              </button>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    )} */}
                   </button>
                   {item.verified == true ? null : (
                     <button
