@@ -60,7 +60,7 @@ const Modal = ({
               </button>
             </div>
             {/*body*/}
-            <div className="relative px-6 py-4 flex-auto">
+            <div className="relative px-6 py-4 flex-auto max-h-96 overflow-auto">
               {type === "form" ? (
                 <Form
                   submitHandler={submitHandler}
