@@ -44,7 +44,11 @@ const Devices = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
-  const [modalType, setModalType] = useState({ title: "", type: "", detail: "" })
+  const [modalType, setModalType] = useState({
+    title: "",
+    type: "",
+    detail: "",
+  });
 
   const {
     register,
@@ -58,12 +62,12 @@ const Devices = () => {
     // setModalType(type)
     let detail;
     if (type === "details") {
-      detail = device.filter((shacker) => shacker._id === id)
+      detail = device.filter((shacker) => shacker._id === id);
     }
     setModalType({
       title: title,
       type: type,
-      detail
+      detail,
     });
     setShowModal(!showModal);
   };
