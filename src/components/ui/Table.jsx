@@ -47,17 +47,20 @@ const Table = ({
                     >
                       {
                         Array.isArray(item[head.prop])
-                          ? item[head.prop].map((item, i) => {
-                              return (
-                                <li key={i} className="list-disc">
-                                  {item[head.value] || item}
-                                </li>
-                              );
-                            })
+                          ? item[head.prop].length == 0
+                            ? "-"
+                            : item[head.prop].map((item, i) => {
+                                return (
+                                  <li key={i} className="list-disc">
+                                    {item[head.value] || item}
+                                  </li>
+                                );
+                              })
                           : typeof item[head.prop] == "object" &&
                             item[head.prop] !== null
                           ? item[head.prop][head.value]
-                          : item[head.prop] == null
+                          : item[head.prop]?.length == 0 ||
+                            item[head.prop] == null
                           ? "-"
                           : item[head.prop] + ""
                         // ? item[head.prop]
