@@ -66,33 +66,7 @@ const Table = ({
                     </td>
                   );
                 })}
-                <td className="px-6 py-4">
-                  <button
-                    className={`font-medium text-xl text-rose-600 ${
-                      actions.delete ? "" : "hidden"
-                    }`}
-                    onClick={() => removeHandler(item._id)}
-                  >
-                    <AiFillDelete />
-                  </button>
-                  <button
-                    className={`font-medium text-xl text-yellow-400 ${
-                      actions.detail ? "" : "hidden"
-                    }`}
-                    onClick={() => infoHandler("details", "details", item._id)}
-                  >
-                    <AiFillInfoCircle />
-                  </button>
-                  <button
-                    className={`font-medium text-xl text-gray-600 ${
-                      actions.edit.value ? "" : "hidden"
-                    }`}
-                    onClick={() =>
-                      editHandler("form", "Reset password", item._id)
-                    }
-                  >
-                    <AiOutlineMore />
-                  </button>
+                <td className="px-6 py-4 w-36">
                   {item.verified == true ? null : (
                     <button
                       className={`font-medium text-xl text-teal-400 dark:text-slate-200 ${
@@ -103,6 +77,33 @@ const Table = ({
                       <AiFillCheckCircle />
                     </button>
                   )}
+
+                  <button
+                    className={`font-medium text-xl text-yellow-400 ${
+                      actions.detail ? "" : "hidden"
+                    }`}
+                    onClick={() => infoHandler("details", "details", item._id)}
+                  >
+                    <AiFillInfoCircle />
+                  </button>
+                  <button
+                    className={`font-medium text-xl text-rose-600 ${
+                      actions.delete ? "" : "hidden"
+                    }`}
+                    onClick={() => removeHandler(item._id)}
+                  >
+                    <AiFillDelete />
+                  </button>
+                  <button
+                    className={`font-medium text-lg text-white bg-gray-400 rounded-full ${
+                      actions.edit.value ? "" : "hidden"
+                    }`}
+                    onClick={() =>
+                      editHandler("form", "Reset password", item._id)
+                    }
+                  >
+                    <AiOutlineMore />
+                  </button>
                 </td>
               </tr>
             );
