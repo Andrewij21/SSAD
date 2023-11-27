@@ -37,7 +37,7 @@ const Modal = ({
   isLoading,
   error,
   type,
-  data
+  data,
 }) => {
   return (
     <Backdrop onClick={toggleModel}>
@@ -61,7 +61,17 @@ const Modal = ({
             </div>
             {/*body*/}
             <div className="relative px-6 py-4 flex-auto">
-              {type === "form" ? <Form submitHandler={submitHandler} fields={fields} isLoading={isLoading} data={data} error={error} /> : <Details data={data} />}
+              {type === "form" ? (
+                <Form
+                  submitHandler={submitHandler}
+                  fields={fields}
+                  isLoading={isLoading}
+                  data={data}
+                  error={error}
+                />
+              ) : (
+                <Details data={data} />
+              )}
             </div>
           </div>
         </div>
