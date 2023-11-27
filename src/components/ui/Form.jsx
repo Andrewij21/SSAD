@@ -20,7 +20,9 @@ const Form = ({ submitHandler, fields, isLoading, error, data }) => {
           <div key={i}>
             <label
               htmlFor={field.name}
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className={`mb-2 text-sm font-medium ${
+                field.type == "text" ? "block" : ""
+              } text-gray-900 dark:text-white`}
             >
               {field.label}
             </label>
@@ -38,7 +40,9 @@ const Form = ({ submitHandler, fields, isLoading, error, data }) => {
                   message: "Entered value cant start/end with white spacing",
                 },
               })}
-              className="bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className={`${
+                field.type == "text" ? "block w-full" : "align-middle ml-2"
+              } bg-gray-50 border border-gray-300 outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-sky-600 focus:border-sky-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
               placeholder={field.placeholder || ""}
             />
             <p className="text-pink-600 lowercase text-sm">
