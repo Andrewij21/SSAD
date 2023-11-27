@@ -49,6 +49,13 @@ const fields = [
     required: false,
     placeholder: "location...",
   },
+  {
+    type: "checkbox",
+    name: "validate",
+    label: "validate",
+    required: false,
+    placeholder: "validate...",
+  },
 ];
 
 const Devices = () => {
@@ -132,7 +139,7 @@ const Devices = () => {
             ...prev,
             {
               ...data,
-              verified: false,
+              verified: payload.validate,
               status: { message: "offline" },
               area: { location: data.location },
             },
