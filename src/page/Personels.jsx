@@ -36,24 +36,32 @@ const Personeles = () => {
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   // const [error, setError] = useState(null);
-  const [modalType, setModalType] = useState({ title: "", type: "", detail: "" })
+  const [modalType, setModalType] = useState({
+    title: "",
+    type: "",
+    detail: "",
+  });
 
   const editHandler = (payload) => {
     setIsLoadingForm(true);
     axiosPrivate
-      .patch("/user/reset-password/" + payload.id, {password:payload.password}, {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      })
+      .patch(
+        "/user/reset-password/" + payload.id,
+        { password: payload.password },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         console.log("data diedit", res);
         setIsLoadingForm(false);
-        setShowModal(false)
+        setShowModal(false);
         // const data = res.data.data
       })
       .catch((e) => {
         setIsLoadingForm(false);
-        setShowModal(false)
+        setShowModal(false);
         console.error(e.toString());
       });
   };
@@ -90,12 +98,11 @@ const Personeles = () => {
       });
   }, [axiosPrivate]);
 
-  const toggleModel = (type  , title  , id) => {
- 
+  const toggleModel = (type, title, id) => {
     setModalType({
       title: title,
       type: type,
-      detail:id
+      detail: { id: id },
     });
     setShowModal(!showModal);
   };
@@ -121,14 +128,14 @@ const Personeles = () => {
       <AnimatePresence initial={true} mode="wait">
         {showModal && (
           <Modal
-          toggleModel={toggleModel}
-          submitHandler={editHandler}
-          title={modalType.title}
-          fields={fields}
-          isLoading={isLoadingForm}
-          // error={error}
-          type={modalType.type}
-          data={modalType.detail}
+            toggleModel={toggleModel}
+            submitHandler={editHandler}
+            title={modalType.title}
+            fields={fields}
+            isLoading={isLoadingForm}
+            // error={error}
+            type={modalType.type}
+            data={modalType.detail}
           />
         )}
       </AnimatePresence>
