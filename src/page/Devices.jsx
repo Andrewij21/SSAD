@@ -18,7 +18,12 @@ const tHead = [
   { head: "verified", prop: "verified" },
 ];
 
-const actions = { delete: true, edit: false, verified: true, detail: true };
+const actions = {
+  delete: true,
+  edit: { value: true },
+  verified: true,
+  detail: true,
+};
 
 const fields = [
   {
@@ -51,8 +56,8 @@ const fields = [
   },
   {
     type: "checkbox",
-    name: "validate",
-    label: "validate",
+    name: "verified",
+    label: "verified",
     required: false,
     placeholder: "validate...",
   },
@@ -82,9 +87,15 @@ const Devices = () => {
   const toggleModel = (type, title, id) => {
     // setModalType(type)
     let detail;
-    if (type === "details") {
-      detail = device.filter((shacker) => shacker._id === id);
+    if (type === "details" || type === "edit") {
+      const findDevice = device.filter((shacker) => shacker._id === id)[0];
+      detail = {
+        ...findDevice,
+        location: findDevice.area.location,
+        user: findDevice.user?._id || null,
+      };
     }
+
     setModalType({
       title: title,
       type: type,
@@ -125,7 +136,7 @@ const Devices = () => {
       });
   };
   const addHandler = (payload) => {
-    // console.log("data ditambah", payload);
+    console.log("data ditambah", payload);
     setIsLoadingForm(true);
     axiosPrivate
       .post("/device", payload)
@@ -139,7 +150,7 @@ const Devices = () => {
             ...prev,
             {
               ...data,
-              verified: payload.validate,
+              verified: payload.verified,
               status: { message: "offline" },
               area: { location: data.location },
             },
@@ -153,7 +164,47 @@ const Devices = () => {
         console.error(e.toString());
       });
   };
-
+  const editHandler = (payload) => {
+    console.log("data di edit", {
+      ...payload,
+    });
+    setIsLoadingForm(true);
+    axiosPrivate
+      .patch(
+        "/device/" + payload._id,
+        { ...payload, area: { location: payload.location } },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("data diedit", res);
+        const data = res.data.data;
+        setIsLoadingForm(false);
+        setDevice((prev) => {
+          const prevDataFilter = prev.filter(
+            (device) => device._id !== payload._id
+          );
+          return [
+            ...prevDataFilter,
+            {
+              ...data,
+              verified: payload.verified,
+              status: { message: "offline" },
+              area: { location: payload.location },
+            },
+          ];
+        });
+        setShowModal(false);
+        // const data = res.data.data
+      })
+      .catch((e) => {
+        setIsLoadingForm(false);
+        setShowModal(false);
+        console.error(e.toString());
+      });
+  };
   const verifiedHandler = (id, payload) => {
     setIsLoading(true);
     axiosPrivate
@@ -204,7 +255,7 @@ const Devices = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => toggleModel("form", "add device")}
+          onClick={() => toggleModel("add", "add device")}
           className="flex gap-1 flex-row items-center bg-teal-400 px-4 py-2 rounded-lg hover:bg-teal-500 hover:ring-teal-400 hover:ring-2 text-white"
         >
           <BsPlus className="font-bold text-xl" />
@@ -217,6 +268,7 @@ const Devices = () => {
         removeHandler={removeHandler}
         verifiedHandler={verifiedHandler}
         infoHandler={toggleModel}
+        editHandler={toggleModel}
         actions={actions}
       />
       {isLoading && (
@@ -230,7 +282,7 @@ const Devices = () => {
         {showModal && (
           <Modal
             toggleModel={toggleModel}
-            submitHandler={addHandler}
+            submitHandler={modalType.type == "add" ? addHandler : editHandler}
             title={modalType.title}
             fields={fields}
             isLoading={isLoadingForm}
