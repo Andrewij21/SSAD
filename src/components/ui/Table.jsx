@@ -102,7 +102,7 @@ const Table = ({
                       actions.edit.value ? "" : "hidden"
                     }`}
                     onClick={() =>
-                      editHandler("form", "Reset password", item._id)
+                      editHandler("edit", "Reset password", item._id)
                     }
                   >
                     <AiOutlineMore />
