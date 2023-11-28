@@ -8,8 +8,12 @@ const Form = ({ submitHandler, fields, isLoading, error, data }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { id: data },
+    defaultValues: {
+      ...data,
+    },
   });
+
+  console.log({ data });
   return (
     <form
       className="space-y-4 md:space-y-6 text-left"
