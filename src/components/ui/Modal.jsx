@@ -61,12 +61,12 @@ const Modal = ({
             </div>
             {/*body*/}
             <div className="relative px-6 py-4 flex-auto max-h-96 overflow-auto">
-              {type === "form" ? (
+              {type === "add" || type === "edit" ? (
                 <Form
                   submitHandler={submitHandler}
                   fields={fields}
                   isLoading={isLoading}
-                  data={data}
+                  data={type === "add" ? null : data}
                   error={error}
                 />
               ) : (
