@@ -7,6 +7,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Spinners from "../components/ui/Spinners";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
+import Alert from "../components/ui/Alert";
 
 const tHead = [
   { head: "devices", prop: "name" },
@@ -70,6 +71,7 @@ const Devices = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
+  const [alert, setAlert] = useState({ status: false, payload: null });
   const [modalType, setModalType] = useState({
     title: "",
     type: "",
@@ -82,7 +84,6 @@ const Devices = () => {
     watch,
     // formState: { errors },
   } = useForm({ defaultValues: { search: "" } });
-
   const search = watch("search");
   const toggleModel = (type, title, id) => {
     // setModalType(type)
@@ -103,6 +104,9 @@ const Devices = () => {
     });
     setShowModal(!showModal);
   };
+  const confrimHandler = (payload) => {
+    setAlert({ status: true, payload: { id: payload } });
+  };
   useEffect(() => {
     setIsLoading(true);
     axiosPrivate
@@ -117,17 +121,22 @@ const Devices = () => {
       });
   }, [search, axiosPrivate]);
 
-  const removeHandler = (id) => {
-    console.log(id);
+  const removeHandler = (confirm, payload) => {
+    // console.log(payload);
+    // console.log(confirm);
+    setAlert({ status: false });
+    if (!confirm) {
+      return;
+    }
     setIsLoading(true);
     axiosPrivate
-      .delete("/device/" + id)
+      .delete("/device/" + payload.id)
       .then((res) => {
         console.log("data dihapus", res);
         // const data = res.data.data
         setIsLoading(false);
         setDevice((prev) => {
-          return prev.filter((data) => data._id !== id);
+          return prev.filter((data) => data._id !== payload.id);
         });
       })
       .catch((e) => {
@@ -228,6 +237,15 @@ const Devices = () => {
   };
   return (
     <div>
+      {alert.status && (
+        <Alert
+          type="confirm"
+          msg="This action can't be undone"
+          title="Are you sure?"
+          handler={removeHandler}
+          data={alert.payload}
+        />
+      )}
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
       <div className="md:flex md:w-full w-1/2 justify-between items-center my-4 space-y-4">
         <div className="w-full md:w-1/2">
@@ -265,7 +283,7 @@ const Devices = () => {
       <Table
         data={device}
         tHead={tHead}
-        removeHandler={removeHandler}
+        removeHandler={confrimHandler}
         verifiedHandler={verifiedHandler}
         infoHandler={toggleModel}
         editHandler={toggleModel}
