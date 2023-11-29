@@ -24,7 +24,7 @@ const Layout = () => {
       <motion.div
         animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variants}
-        className={`hidden md:block min-w-[120px]`}
+        className={`hidden -left-full fixed md:static md:block min-w-[120px]`}
       >
         <Sidebar menu={openMenu} isMobile={false} />
       </motion.div>
