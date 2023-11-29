@@ -9,8 +9,8 @@ const variants = {
   nonexpanded: { width: "10%" },
 };
 const variantsMobile = {
-  expanded: { width: "20%" },
-  nonexpanded: { width: "0%" },
+  expanded: { x: 0, opacity: 1 },
+  nonexpanded: { x: "-100%" },
 };
 
 const Layout = () => {
@@ -29,11 +29,11 @@ const Layout = () => {
         <Sidebar menu={openMenu} isMobile={false} />
       </motion.div>
       <motion.div
-        // animate={openMenu ? "expanded" : "nonexpanded"}
+        animate={openMenu ? "expanded" : "nonexpanded"}
+        initial={{ x: "-100%", opacity: 0 }}
         variants={variantsMobile}
-        className={`${
-          openMenu ? "left-0" : " -right-full"
-        } fixed top-0 h-screen z-50 md:hidden w-36`}
+        transition={{ ease: "easeInOut" }}
+        className={`fixed top-0 h-screen z-50 md:hidden w-40`}
       >
         <Sidebar menu={openMenu} isMobile={true} toggleMenu={menuHandler} />
       </motion.div>
