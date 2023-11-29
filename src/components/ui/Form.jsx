@@ -78,7 +78,7 @@ Form.propTypes = {
   error: propTypes.string,
   fields: propTypes.array,
   isLoading: propTypes.bool,
-  data: propTypes.string,
+  data: propTypes.object,
 };
 
 export default Form;
