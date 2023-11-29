@@ -27,12 +27,12 @@ const Login = () => {
       .then((res) => {
         console.log({ res });
         const msg = res.data.message;
-        const code = res.data.code;
+        // const code = res.data.code;
         const data = res.data.data;
 
         if (data.roles !== "admin") throw { msg: "Unauthorized", code: 401 };
 
-        isAlert({ msg, code });
+        isAlert({ msg, type: "succeed", title: "Succees" });
         setAuth(data);
         setTimeout(() => {
           isAlert("");
@@ -42,8 +42,8 @@ const Login = () => {
       .catch((e) => {
         console.error(e);
         const msg = e.response?.data.message || e.msg;
-        const code = e.response?.data.code || e.code;
-        isAlert({ msg, code });
+        // const code = e.response?.data.code || e.code;
+        isAlert({ msg, type: "error", title: "ERROR" });
         setTimeout(() => {
           isAlert("");
         }, 3000);
@@ -52,7 +52,9 @@ const Login = () => {
   return (
     <section className="bg-gradient-to-tl from-sky-600 to-gray-50 dark:bg-gray-900 h-screen">
       <AnimatePresence initial={false} mode="wait">
-        {alert ? <Alert msg={alert.msg} code={alert.code} /> : null}
+        {alert ? (
+          <Alert msg={alert.msg} type={alert.type} title={alert.title} />
+        ) : null}
       </AnimatePresence>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
