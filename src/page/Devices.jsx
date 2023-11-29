@@ -237,15 +237,17 @@ const Devices = () => {
   };
   return (
     <div>
-      {alert.status && (
-        <Alert
-          type="confirm"
-          msg="This action can't be undone"
-          title="Are you sure?"
-          handler={removeHandler}
-          data={alert.payload}
-        />
-      )}
+      <AnimatePresence initial={false} mode="wait">
+        {alert.status && (
+          <Alert
+            type="confirm"
+            msg="This action can't be undone"
+            title="Are you sure?"
+            handler={removeHandler}
+            data={alert.payload}
+          />
+        )}
+      </AnimatePresence>
       <h1 className="text-2xl text-sky-600 font-bold capitalize">Devices</h1>
       <div className="md:flex md:w-full w-1/2 justify-between items-center my-4 space-y-4">
         <div className="w-full md:w-1/2">
