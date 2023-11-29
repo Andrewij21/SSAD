@@ -7,7 +7,7 @@ const dropIn = {
     opacity: 0,
   },
   visible: {
-    y: "0",
+    y: "30%",
     opacity: 1,
     transition: {
       duration: 0.1,
@@ -28,7 +28,7 @@ const dropIn = {
 const types = {
   succeed: { name: "success", color: "bg-green-50 text-green-800" },
   error: { name: "error", color: "bg-pink-50 text-red-800" },
-  confirm: { name: "confirm", color: "bg-slate-50 text-black" },
+  confirm: { name: "confirm", color: "bg-slate-50 text-black border-2" },
 };
 
 const Alert = ({ type, msg, title, handler, data }) => {
