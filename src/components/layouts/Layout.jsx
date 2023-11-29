@@ -20,7 +20,7 @@ const Layout = () => {
   };
 
   return (
-    <div className="w-full flex min-h-screen">
+    <div className="w-full flex min-h-screen overflow-hidden">
       <motion.div
         animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variants}
@@ -31,13 +31,14 @@ const Layout = () => {
       <motion.div
         // animate={openMenu ? "expanded" : "nonexpanded"}
         variants={variantsMobile}
-        className={`${openMenu ? "left-0" : " -right-full"
-          } fixed top-0 h-screen z-50 md:hidden w-36`}
+        className={`${
+          openMenu ? "left-0" : " -right-full"
+        } fixed top-0 h-screen z-50 md:hidden w-36`}
       >
         <Sidebar menu={openMenu} isMobile={true} toggleMenu={menuHandler} />
       </motion.div>
 
-      <div className="w-screen">
+      <div className="w-full overflow-x-auto">
         <Navbar action={menuHandler} />
         <main className="px-6 py-4 min-h-[calc(100vh-45px)] bg-slate-200">
           <Outlet />
