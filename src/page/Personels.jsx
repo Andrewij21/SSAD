@@ -17,7 +17,7 @@ const fields = [
     type: "text",
     name: "password",
     label: "Reset password",
-    required: true,
+    required: false,
     focus: true,
     placeholder: "insert new password",
   },
@@ -57,11 +57,21 @@ const Personeles = () => {
   });
 
   const editHandler = (payload) => {
+    console.log("data di edit", {
+      ...payload,
+    });
+
+    // PASSWORD TIDAK BOLEH KOSONG JIKA KOSONG HAPUS PROPS NYA
+    if (payload.password === null || payload.password.trim() === "")
+      delete payload.password;
+    console.log("data di edit sesudah", {
+      ...payload,
+    });
     setIsLoadingForm(true);
     axiosPrivate
       .patch(
-        "/user/reset-password/" + payload.id,
-        { password: payload.password },
+        "/user/" + payload._id,
+        { ...payload },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
