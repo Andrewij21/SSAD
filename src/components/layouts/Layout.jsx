@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 
 const variants = {
-  expanded: { width: "20%" },
+  expanded: { width: "20%", minWidth: "150px" },
   nonexpanded: { width: "10%" },
 };
 const variantsMobile = {
