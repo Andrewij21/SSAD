@@ -29,7 +29,7 @@ const fields = [
     placeholder: "insert username",
   },
   {
-    type: "text",
+    type: "select",
     name: "roles",
     label: "user role",
     required: true,
@@ -71,7 +71,7 @@ const Personeles = () => {
     axiosPrivate
       .patch(
         "/user/" + payload._id,
-        { ...payload },
+        { ...payload, roles: payload.roles.toLowerCase() },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
