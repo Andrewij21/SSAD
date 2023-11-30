@@ -21,6 +21,20 @@ const fields = [
     focus: true,
     placeholder: "insert new password",
   },
+  {
+    type: "text",
+    name: "username",
+    label: "username",
+    required: true,
+    placeholder: "insert username",
+  },
+  {
+    type: "text",
+    name: "roles",
+    label: "user role",
+    required: true,
+    placeholder: "insert user role",
+  },
 ];
 
 const actions = {
@@ -99,10 +113,24 @@ const Personeles = () => {
   }, [axiosPrivate]);
 
   const toggleModel = (type, title, id) => {
+    let detail;
+    if (type === "edit") {
+      const findPersonel = personels.filter(
+        (personel) => personel._id === id
+      )[0];
+      detail = {
+        ...findPersonel,
+        // location: findDevice.area.location,
+        // user: findDevice.user?._id || null,
+      };
+    } else {
+      detail = { id: id };
+    }
+
     setModalType({
       title: title,
       type: type,
-      detail: { id: id },
+      detail,
     });
     setShowModal(!showModal);
   };
