@@ -101,9 +101,7 @@ const Table = ({
                     className={`font-medium text-lg text-white bg-gray-400 rounded-full ${
                       actions.edit.value ? "" : "hidden"
                     }`}
-                    onClick={() =>
-                      editHandler("edit", "Reset password", item._id)
-                    }
+                    onClick={() => editHandler("edit", "Edit", item._id)}
                   >
                     <AiOutlineMore />
                   </button>
