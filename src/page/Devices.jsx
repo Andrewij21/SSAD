@@ -77,7 +77,8 @@ const Devices = () => {
     type: "",
     detail: "",
   });
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const {
     register,
     // handleSubmit,
@@ -110,16 +111,17 @@ const Devices = () => {
   useEffect(() => {
     setIsLoading(true);
     axiosPrivate
-      .get(`/device?q=${search}`)
+      .get(`/device?q=${search}&page=${currentPage}&perpage=5`)
       .then((res) => {
         // console.log("device", res);
         setIsLoading(false);
         setDevice(res.data.data);
+        setTotalPages(res.data.totalPages);
       })
       .catch((e) => {
         console.error(e.toString());
       });
-  }, [search, axiosPrivate]);
+  }, [search, axiosPrivate, currentPage]);
 
   const removeHandler = (confirm, payload) => {
     // console.log(payload);
@@ -290,6 +292,9 @@ const Devices = () => {
         infoHandler={toggleModel}
         editHandler={toggleModel}
         actions={actions}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        pageHandler={setCurrentPage}
       />
       {isLoading && (
         <div className="text-center mt-2">
