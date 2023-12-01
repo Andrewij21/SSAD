@@ -83,7 +83,18 @@ const Personeles = () => {
         console.log("data diedit", res);
         setIsLoadingForm(false);
         setShowModal(false);
-        // const data = res.data.data
+        const data = res.data.data;
+        setPersonels((prev) => {
+          const prevDataFilter = prev.filter(
+            (personel) => personel._id !== payload._id
+          );
+          return [
+            ...prevDataFilter,
+            {
+              ...data,
+            },
+          ];
+        });
       })
       .catch((e) => {
         setIsLoadingForm(false);
