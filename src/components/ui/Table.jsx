@@ -118,7 +118,7 @@ const Table = ({
           </tbody>
         </table>
       </div>
-      <div className="md:flex justify-end">
+      <div className="md:flex justify-end min-w-[900px]">
         <div className="flex items-center -space-x-px h-10 text-base">
           {[...Array(totalPages)].map((page, i) => {
             i++;
