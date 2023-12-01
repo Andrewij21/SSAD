@@ -15,6 +15,7 @@ const Table = ({
   actions,
   totalPages,
   currentPage,
+  pageHandler,
 }) => {
   return (
     <div className="overflow-x-auto">
@@ -117,70 +118,24 @@ const Table = ({
           </tbody>
         </table>
       </div>
-      <nav aria-label="Page navigation example" className="md:flex justify-end">
-        <ul className="flex items-center -space-x-px h-10 text-base">
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Previous</span>
-              <svg
-                className="w-3 h-3 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 1 1 5l4 4"
-                />
-              </svg>
-            </a>
-          </li>
+      <div className="md:flex justify-end">
+        <div className="flex items-center -space-x-px h-10 text-base">
           {[...Array(totalPages)].map((page, i) => {
             i++;
             return (
-              <li key={i}>
-                <span
-                  className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 ${
-                    i === currentPage ? "bg-blue-50 " : "bg-white "
-                  } border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-                >
-                  {i}
-                </span>
-              </li>
+              <button
+                onClick={() => pageHandler(i)}
+                key={i}
+                className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 ${
+                  i === currentPage ? "bg-blue-50 " : "bg-white "
+                } border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+              >
+                {i}
+              </button>
             );
           })}
-          <li>
-            <a
-              href="#"
-              className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span className="sr-only">Next</span>
-              <svg
-                className="w-3 h-3 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 9 4-4-4-4"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </nav>
+        </div>
+      </div>
     </div>
   );
 };
@@ -197,6 +152,7 @@ Table.propTypes = {
   isLoading: PropTypes.bool,
   totalPages: PropTypes.number,
   currentPage: PropTypes.number,
+  pageHandler: PropTypes.func,
 };
 
 export default Table;
