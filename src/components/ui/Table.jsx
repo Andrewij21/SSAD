@@ -119,7 +119,7 @@ const Table = ({
         </table>
       </div>
       <div className="md:flex justify-end min-w-[900px]">
-        <div className="flex items-center -space-x-px h-10 text-base">
+        <div className="flex items-center -space-x-px h-10 text-base rounded-lg overflow-clip">
           {[...Array(totalPages)].map((page, i) => {
             i++;
             return (
