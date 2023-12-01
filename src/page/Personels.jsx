@@ -4,6 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Spinners from "../components/ui/Spinners";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../components/ui/Modal";
+import Alert from "../components/ui/Alert";
 
 const tHead = [
   { head: "username", prop: "username" },
@@ -50,6 +51,7 @@ const Personeles = () => {
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   // const [error, setError] = useState(null);
+  const [alert, setAlert] = useState({ status: false, payload: null });
   const [modalType, setModalType] = useState({
     title: "",
     type: "",
@@ -58,6 +60,9 @@ const Personeles = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const confrimHandler = (payload) => {
+    setAlert({ status: true, payload: { id: payload } });
+  };
   const editHandler = (payload) => {
     console.log("data di edit", {
       ...payload,
@@ -102,17 +107,21 @@ const Personeles = () => {
         console.error(e.toString());
       });
   };
-  const removeHandler = (id) => {
-    console.log(id);
+  const removeHandler = (confirm, payload) => {
+    console.log({ payload });
+    setAlert({ status: false });
+    if (!confirm) {
+      return;
+    }
     setIsLoading(true);
     axiosPrivate
-      .delete("/user/" + id)
+      .delete("/user/" + payload.id)
       .then((res) => {
         console.log("data dihapus", res);
         // const data = res.data.data
         setIsLoading(false);
         setPersonels((prev) => {
-          return prev.filter((data) => data._id !== id);
+          return prev.filter((data) => data._id !== payload.id);
         });
       })
       .catch((e) => {
@@ -161,6 +170,17 @@ const Personeles = () => {
 
   return (
     <div>
+      <AnimatePresence initial={false} mode="wait">
+        {alert.status && (
+          <Alert
+            type="confirm"
+            msg="This action can't be undone"
+            title="Are you sure?"
+            handler={removeHandler}
+            data={alert.payload}
+          />
+        )}
+      </AnimatePresence>
       <h1 className="text-2xl text-sky-600 font-bold capitalize pb-4">
         Personels
       </h1>
@@ -168,7 +188,7 @@ const Personeles = () => {
         data={personels}
         tHead={tHead}
         actions={actions}
-        removeHandler={removeHandler}
+        removeHandler={confrimHandler}
         editHandler={toggleModel}
         totalPages={totalPages}
         currentPage={currentPage}
