@@ -55,6 +55,7 @@ const Personeles = () => {
     type: "",
     detail: "",
   });
+  const [pages, setPages] = useState({ total: 0, current: 1 });
 
   const editHandler = (payload) => {
     console.log("data di edit", {
@@ -116,6 +117,9 @@ const Personeles = () => {
         console.log(res);
         setIsLoading(false);
         setPersonels(res.data.data);
+        setPages((prev) => {
+          return { ...prev, total: res.data.totalPages };
+        });
       })
       .catch((e) => {
         console.error(e);
@@ -156,6 +160,8 @@ const Personeles = () => {
         actions={actions}
         removeHandler={removeHandler}
         editHandler={toggleModel}
+        totalPages={pages.total}
+        currentPage={pages.current}
         // title={"Edit password"}
         isLoading={isLoadingForm}
       />
