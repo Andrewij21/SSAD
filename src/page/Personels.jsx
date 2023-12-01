@@ -111,7 +111,7 @@ const Personeles = () => {
   useEffect(() => {
     setIsLoading(true);
     axiosPrivate
-      .get(`/user`)
+      .get(`/user?page=1&perpage=5`)
       .then((res) => {
         console.log(res);
         setIsLoading(false);
