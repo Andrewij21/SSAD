@@ -72,6 +72,7 @@ const Devices = () => {
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
   const [alert, setAlert] = useState({ status: false, payload: null });
+  const [reRender, setReRender] = useState(false);
   const [modalType, setModalType] = useState({
     title: "",
     type: "",
@@ -113,7 +114,7 @@ const Devices = () => {
     axiosPrivate
       .get(`/device?q=${search}&page=${currentPage}&perpage=5`)
       .then((res) => {
-        // console.log("device", res);
+        console.log("device", res);
         setIsLoading(false);
         setDevice(res.data.data);
         setTotalPages(res.data.totalPages);
@@ -121,7 +122,7 @@ const Devices = () => {
       .catch((e) => {
         console.error(e.toString());
       });
-  }, [search, axiosPrivate, currentPage]);
+  }, [search, axiosPrivate, currentPage, reRender]);
 
   const removeHandler = (confirm, payload) => {
     // console.log(payload);
@@ -149,24 +150,27 @@ const Devices = () => {
   const addHandler = (payload) => {
     console.log("data ditambah", payload);
     setIsLoadingForm(true);
+    setIsLoading(true);
     axiosPrivate
       .post("/device", payload)
       .then((res) => {
         console.log("data ditambah", res);
-        const data = res.data.data;
+        // const data = res.data.data;
         setError(null);
         setIsLoadingForm(false);
-        setDevice((prev) => {
-          return [
-            ...prev,
-            {
-              ...data,
-              verified: payload.verified,
-              status: { message: "offline" },
-              area: { location: data.location },
-            },
-          ];
-        });
+        setIsLoading(false);
+        setReRender(!reRender);
+        // setDevice((prev) => {
+        //   return [
+        //     ...prev,
+        //     {
+        //       ...data,
+        //       verified: payload.verified,
+        //       status: { message: "offline" },
+        //       area: { location: data.location },
+        //     },
+        //   ];
+        // });
         setShowModal(!showModal);
       })
       .catch((e) => {
