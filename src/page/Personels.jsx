@@ -5,48 +5,10 @@ import Spinners from "../components/ui/Spinners";
 import { AnimatePresence } from "framer-motion";
 import Modal from "../components/ui/Modal";
 import Alert from "../components/ui/Alert";
-
-const tHead = [
-  { head: "username", prop: "username" },
-  { head: "devices", prop: "devices", value: "name" },
-  // { head: "area", prop: "area", value: "location" },
-  { head: "role", prop: "roles" },
-];
-
-const fields = [
-  {
-    type: "text",
-    name: "password",
-    label: "Reset password",
-    required: false,
-    focus: true,
-    placeholder: "insert new password",
-  },
-  {
-    type: "text",
-    name: "username",
-    label: "username",
-    required: true,
-    placeholder: "insert username",
-  },
-  {
-    type: "select",
-    name: "roles",
-    label: "user role",
-    required: true,
-    placeholder: "insert user role",
-  },
-];
-
-const actions = {
-  delete: true,
-  edit: { value: true, props: fields },
-  verified: false,
-};
+import { actions, fields, tHead } from "../utils/_personels";
 
 const Personeles = () => {
   const [personels, setPersonels] = useState([]);
-  const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -60,35 +22,90 @@ const Personeles = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  // Start of user API
+  const axiosPrivate = useAxiosPrivate();
+  const deleteApi = async (id) => await axiosPrivate.delete("/user/" + id);
+  const updateApi = async (payload) => {
+    return await axiosPrivate.patch(
+      "/user/" + payload._id,
+      { ...payload, roles: payload.roles.toLowerCase() },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
+  };
+  const findUserApi = async (id) => await axiosPrivate.get(`/user/${id}`);
+  // End of user API
+
+  const toggleModel = (type, title, id) => {
+    if (type === "add") {
+      setModalType({
+        title: title,
+        type: type,
+      });
+      setShowModal(!showModal);
+    } else if (type === "edit" || type === "details") {
+      let detail = {};
+      findUserApi(id)
+        .then((res) => {
+          console.log("User finded", res);
+          const findUser = res.data.data;
+          detail = {
+            ...findUser,
+            password: "",
+            options: ["user", "admin"],
+          };
+
+          setModalType({
+            title: title,
+            type: type,
+            detail,
+          });
+          setShowModal(!showModal);
+        })
+        .catch((e) => {
+          console.error("User not found", e.toString());
+        });
+    } else {
+      setShowModal(!showModal);
+    }
+  };
   const confrimHandler = (payload) => {
     setAlert({ status: true, payload: { id: payload } });
   };
-  const editHandler = (payload) => {
-    console.log("data di edit", {
-      ...payload,
-    });
+  const removeHandler = (confirm, payload) => {
+    // Set confirm model
+    setAlert({ status: false });
+    if (!confirm) {
+      return;
+    }
 
-    // PASSWORD TIDAK BOLEH KOSONG JIKA KOSONG HAPUS PROPS NYA
+    // Rest of delete code
+    setIsLoading(true);
+    deleteApi(payload.id)
+      .then((res) => {
+        console.log("Data berhasil dihapus", res.data.data);
+        setIsLoading(false);
+        setPersonels((prev) => {
+          return prev.filter((data) => data._id !== payload.id);
+        });
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        console.error("Data gagal dihapus", e.toString());
+      });
+  };
+  const editHandler = (payload) => {
     if (payload.password === null || payload.password.trim() === "")
       delete payload.password;
-    console.log("data di edit sesudah", {
-      ...payload,
-    });
+
     setIsLoadingForm(true);
-    axiosPrivate
-      .patch(
-        "/user/" + payload._id,
-        { ...payload, roles: payload.roles.toLowerCase() },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
+    updateApi(payload)
       .then((res) => {
         console.log("data diedit", res);
-        setIsLoadingForm(false);
-        setShowModal(false);
         const data = res.data.data;
+        setIsLoadingForm(false);
         setPersonels((prev) => {
           const prevDataFilter = prev.filter(
             (personel) => personel._id !== payload._id
@@ -100,33 +117,12 @@ const Personeles = () => {
             },
           ];
         });
+        setShowModal(false);
       })
       .catch((e) => {
         setIsLoadingForm(false);
         setShowModal(false);
-        console.error(e.toString());
-      });
-  };
-  const removeHandler = (confirm, payload) => {
-    console.log({ payload });
-    setAlert({ status: false });
-    if (!confirm) {
-      return;
-    }
-    setIsLoading(true);
-    axiosPrivate
-      .delete("/user/" + payload.id)
-      .then((res) => {
-        console.log("data dihapus", res);
-        // const data = res.data.data
-        setIsLoading(false);
-        setPersonels((prev) => {
-          return prev.filter((data) => data._id !== payload.id);
-        });
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        console.error(e.toString());
+        console.error("Data gagal di edit:", e.toString());
       });
   };
 
@@ -135,7 +131,7 @@ const Personeles = () => {
     axiosPrivate
       .get(`/user?page=${currentPage}&perpage=5`)
       .then((res) => {
-        console.log(res);
+        console.log("users", res);
         setIsLoading(false);
         setPersonels(res.data.data);
         setTotalPages(res.data.totalPages);
@@ -144,29 +140,6 @@ const Personeles = () => {
         console.error(e);
       });
   }, [axiosPrivate, currentPage]);
-
-  const toggleModel = (type, title, id) => {
-    let detail;
-    if (type === "edit") {
-      const findPersonel = personels.filter(
-        (personel) => personel._id === id
-      )[0];
-      detail = {
-        ...findPersonel,
-        // location: findDevice.area.location,
-        // user: findDevice.user?._id || null,
-      };
-    } else {
-      detail = { id: id };
-    }
-
-    setModalType({
-      title: title,
-      type: type,
-      detail,
-    });
-    setShowModal(!showModal);
-  };
 
   return (
     <div>
@@ -187,14 +160,12 @@ const Personeles = () => {
       <Table
         data={personels}
         tHead={tHead}
-        actions={actions}
         removeHandler={confrimHandler}
         editHandler={toggleModel}
+        actions={actions}
         totalPages={totalPages}
         currentPage={currentPage}
         pageHandler={setCurrentPage}
-        // title={"Edit password"}
-        isLoading={isLoadingForm}
       />
       <div className="flex justify-center mt-2">
         {isLoading && <Spinners />}

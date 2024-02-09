@@ -8,66 +8,11 @@ import Spinners from "../components/ui/Spinners";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
 import Alert from "../components/ui/Alert";
-
-const tHead = [
-  { head: "devices", prop: "name" },
-  // { head: "macaddress", prop: "user", value: "macaddress" },
-  { head: "macaddress", prop: "macaddress" },
-  { head: "username", prop: "user", value: "username" },
-  { head: "location", prop: "area", value: "location" },
-  { head: "status", prop: "status", value: "message" },
-  { head: "verified", prop: "verified" },
-];
-
-const actions = {
-  delete: true,
-  edit: { value: true },
-  verified: true,
-  detail: true,
-};
-
-const fields = [
-  {
-    type: "text",
-    name: "name",
-    label: "device*",
-    required: true,
-    placeholder: "device name...",
-  },
-  {
-    type: "text",
-    name: "macaddress",
-    label: "macaddress*",
-    required: true,
-    placeholder: "device macaddress...",
-  },
-  {
-    type: "text",
-    name: "user",
-    label: "user ID",
-    required: false,
-    placeholder: "input user id...",
-  },
-  {
-    type: "text",
-    name: "location",
-    label: "location",
-    required: false,
-    placeholder: "location...",
-  },
-  {
-    type: "checkbox",
-    name: "verified",
-    label: "verified",
-    required: false,
-    placeholder: "validate...",
-  },
-];
+import { tHead, actions, fields } from "../utils/_devices";
 
 const Devices = () => {
   const [showModal, setShowModal] = useState(false);
   const [device, setDevice] = useState([]);
-  const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [error, setError] = useState(null);
@@ -87,56 +32,76 @@ const Devices = () => {
     // formState: { errors },
   } = useForm({ defaultValues: { search: "" } });
   const search = watch("search");
-  const toggleModel = (type, title, id) => {
-    // setModalType(type)
-    let detail;
-    if (type === "details" || type === "edit") {
-      const findDevice = device.filter((shacker) => shacker._id === id)[0];
-      detail = {
-        ...findDevice,
-        location: findDevice.area.location,
-        user: findDevice.user?._id || null,
-      };
-    }
 
-    setModalType({
-      title: title,
-      type: type,
-      detail,
-    });
-    setShowModal(!showModal);
+  // Start of devices API
+  const axiosPrivate = useAxiosPrivate();
+  const deleteApi = async (id) => await axiosPrivate.delete("/device/" + id);
+  const createApi = async (payload) =>
+    await axiosPrivate.post("/device", payload);
+  const updateApi = async (payload) => {
+    return await axiosPrivate.patch(
+      "/device/" + payload._id,
+      { ...payload, area: { location: payload.location } },
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    );
   };
+  const verifiedApi = async ({ payload, id }) =>
+    await axiosPrivate.patch("/device/" + id, { verified: payload });
+  const findDeviceApi = async (id) => await axiosPrivate.get(`/device/${id}`);
+  // End of devices API
+
+  const toggleModel = (type, title, id) => {
+    if (type === "add") {
+      setModalType({
+        title: title,
+        type: type,
+      });
+      setShowModal(!showModal);
+    } else if (type === "edit" || type === "details") {
+      let detail = {};
+      findDeviceApi(id)
+        .then((res) => {
+          console.log("device finded", res.data.data);
+          const findDevice = res.data.data;
+          detail = {
+            ...findDevice,
+            location: findDevice.area.location,
+            user: findDevice.user?._id || null,
+          };
+
+          setModalType({
+            title: title,
+            type: type,
+            detail,
+          });
+          setShowModal(!showModal);
+        })
+        .catch((e) => {
+          console.error("Device no found", e.toString());
+        });
+    } else {
+      setShowModal(!showModal);
+    }
+  };
+
   const confrimHandler = (payload) => {
     setAlert({ status: true, payload: { id: payload } });
   };
-  useEffect(() => {
-    setIsLoading(true);
-    axiosPrivate
-      .get(`/device?q=${search}&page=${currentPage}&perpage=5`)
-      .then((res) => {
-        console.log("device", res);
-        setIsLoading(false);
-        setDevice(res.data.data);
-        setTotalPages(res.data.totalPages);
-      })
-      .catch((e) => {
-        console.error(e.toString());
-      });
-  }, [search, axiosPrivate, currentPage, reRender]);
-
   const removeHandler = (confirm, payload) => {
-    // console.log(payload);
-    // console.log(confirm);
+    // Set confirm model
     setAlert({ status: false });
     if (!confirm) {
       return;
     }
+
+    // Rest of delete code
     setIsLoading(true);
-    axiosPrivate
-      .delete("/device/" + payload.id)
+    deleteApi(payload.id)
       .then((res) => {
         console.log("data dihapus", res);
-        // const data = res.data.data
         setIsLoading(false);
         setDevice((prev) => {
           return prev.filter((data) => data._id !== payload.id);
@@ -148,53 +113,28 @@ const Devices = () => {
       });
   };
   const addHandler = (payload) => {
-    console.log("data ditambah", payload);
     setIsLoadingForm(true);
     setIsLoading(true);
-    axiosPrivate
-      .post("/device", payload)
+    createApi(payload)
       .then((res) => {
         console.log("data ditambah", res);
-        // const data = res.data.data;
         setError(null);
         setIsLoadingForm(false);
         setIsLoading(false);
         setReRender(!reRender);
-        // setDevice((prev) => {
-        //   return [
-        //     ...prev,
-        //     {
-        //       ...data,
-        //       verified: payload.verified,
-        //       status: { message: "offline" },
-        //       area: { location: data.location },
-        //     },
-        //   ];
-        // });
         setShowModal(!showModal);
       })
       .catch((e) => {
         setIsLoadingForm(false);
         setError(e.response.data.message);
-        console.error(e.toString());
+        console.error("Data gagal di tambah:", e.toString());
       });
   };
   const editHandler = (payload) => {
-    console.log("data di edit", {
-      ...payload,
-    });
     setIsLoadingForm(true);
-    axiosPrivate
-      .patch(
-        "/device/" + payload._id,
-        { ...payload, area: { location: payload.location } },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
+    updateApi(payload)
       .then((res) => {
-        console.log("data diedit", res);
+        console.log("data diedit:", res);
         const data = res.data.data;
         setIsLoadingForm(false);
         setDevice((prev) => {
@@ -212,18 +152,16 @@ const Devices = () => {
           ];
         });
         setShowModal(false);
-        // const data = res.data.data
       })
       .catch((e) => {
         setIsLoadingForm(false);
         setShowModal(false);
-        console.error(e.toString());
+        console.error("Data gagal di edit:", e.toString());
       });
   };
   const verifiedHandler = (id, payload) => {
     setIsLoading(true);
-    axiosPrivate
-      .patch("/device/" + id, { verified: payload })
+    verifiedApi({ id, payload })
       .then((res) => {
         console.log("data di verified", res);
         setIsLoading(false);
@@ -238,9 +176,32 @@ const Devices = () => {
       })
       .catch((e) => {
         isLoading(false);
-        console.error(e.toString());
+        console.error("Data gagal di verified:", e.toString());
       });
   };
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+    axiosPrivate
+      .get(`/device?q=${search}&page=${currentPage}&perpage=5`)
+      .then((res) => {
+        if (isMounted) {
+          console.log("device", res);
+          setIsLoading(false);
+          setDevice(res.data.data);
+          setTotalPages(res.data.totalPages);
+        }
+      })
+      .catch((e) => {
+        if (isMounted) {
+          console.error(e.toString());
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, [search, axiosPrivate, currentPage, reRender]);
+
   return (
     <div>
       <AnimatePresence initial={false} mode="wait">

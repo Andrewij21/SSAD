@@ -10,10 +10,15 @@ const Form = ({ submitHandler, fields, isLoading, error, data }) => {
   } = useForm({
     defaultValues: {
       ...data,
+      options: [],
     },
   });
 
   console.log({ data });
+  // if(data.options.length != 0 && typeof data.options[0] == "string" )
+  // {
+
+  // }
   return (
     <form
       className="space-y-4 md:space-y-6 text-left"
@@ -65,10 +70,20 @@ const Form = ({ submitHandler, fields, isLoading, error, data }) => {
                     message: "Entered value cant start/end with white spacing",
                   },
                 })}
-                className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-2"
               >
-                <option defaultValue="user">user</option>
-                <option value="admin">admin</option>
+                {data.options.map((option) => {
+                  return typeof option != "object" ? (
+                    <option value={`${option}`} key={option}>
+                      {option}
+                    </option>
+                  ) : (
+                    <option value={`${option._id}`} key={option._id}>
+                      {option.username}
+                      &nbsp; ({option._id})
+                    </option>
+                  );
+                })}
               </select>
             )}
 
