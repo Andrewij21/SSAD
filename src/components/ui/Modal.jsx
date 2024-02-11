@@ -66,7 +66,7 @@ const Modal = ({
                   submitHandler={submitHandler}
                   fields={fields}
                   isLoading={isLoading}
-                  data={type === "add" ? { options: data.options } : data}
+                  data={type === "add" ? { options: data?.options } : data}
                   error={error}
                 />
               ) : (
